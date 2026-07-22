@@ -291,6 +291,7 @@ button,input,select,textarea{max-width:100%}
     clientConversation: {
       messages: [],
       lastQuestion: '',
+      lastIntent: '',
       pending: null
     },
     clientEstimate: null
@@ -594,8 +595,12 @@ button,input,select,textarea{max-width:100%}
   const INTENTS = [
     {id:'open_vat', type:'direct', keys:['aprire partita iva','apertura partita iva','aprire piva','apertura piva'],
       answer:'L’apertura della partita IVA è gratuita. Gli eventuali servizi successivi — contabilità, dichiarazioni, iscrizioni e gestione annuale — vengono stimati separatamente.'},
-    {id:'srl_constitution', type:'direct', keys:['costituire srl','costituzione srl','aprire una srl','quanto costa una srl','costituire societa'],
-      answer:'La sola costituzione di una SRL parte da € 1.500. Gli adempimenti e i servizi dell’anno — contabilità, dichiarazioni, bilancio, F24, visure e assistenza — non sono inclusi e vengono preventivati separatamente con il preventivatore.'},
+    {id:'srl_full', type:'guided', keys:['costituire e gestire una srl','costituzione e gestione srl','aprire e mantenere una srl','costituire e mantenere srl'], follow:'srl_annual_revenue',
+      intro:'La sola costituzione della SRL parte da € 1.500. Ora ti guido nel calcolo separato del mantenimento annuale, usando le voci del prontuario.', context:{includeConstitution:true}},
+    {id:'srl_cost_choice', type:'guided', keys:['quanto costa una srl','quanto ti prendi per una srl','costo di una srl','costo srl','prezzo srl'], follow:'srl_cost_choice'},
+    {id:'srl_constitution', type:'direct', keys:['costituire srl','costituire una srl','quanto costa costituire una srl','costituzione srl','aprire una srl','costituire societa'],
+      answer:'La sola costituzione di una SRL parte da € 1.500. Gli adempimenti e i servizi dell’anno non sono inclusi. Se vuoi, posso guidarti subito nel calcolo del mantenimento annuale: scrivi “sì” oppure “quanto costa all’anno”.'},
+    {id:'srl_annual', type:'guided', keys:['gestione annuale srl','mantenimento annuale srl','mantenimento annuo srl','costo annuo srl','quanto costa all anno una srl','costi annuali srl','gestire annualmente srl'], follow:'srl_annual_revenue'},
     {id:'close_business', type:'direct', keys:['chiudere attivita','chiusura attivita','cessare attivita','chiudere partita iva','chiusura partita iva'],
       answer:'La chiusura dell’attività parte da € 1.500. Il compenso definitivo dipende dagli adempimenti necessari e deve essere confermato dallo Studio.'},
     {id:'close_company', type:'direct', keys:['chiudere societa','chiusura societa','chiudere srl','liquidare societa','mettere in liquidazione'],
@@ -664,6 +669,85 @@ button,input,select,textarea{max-width:100%}
   ];
 
   const FOLLOW_UPS = {
+    srl_cost_choice: {
+      prompt:'Ti interessa la sola costituzione oppure vuoi stimare anche il mantenimento annuale?',
+      options:['Solo costituzione','Mantenimento annuale','Costituzione e mantenimento annuale'],
+      carry:'srlChoice',
+      resolve:value => value==='Solo costituzione'
+        ? {text:'La sola costituzione della SRL parte da € 1.500. Gli adempimenti dell’anno sono separati.', estimateItems:[{key:'srl_constitution',title:'Costituzione SRL',amount:1500,annualAmount:1500,priceText:'A partire da € 1.500',note:'Comprende esclusivamente la costituzione; il mantenimento annuale è separato.',discountEligible:false}]}
+        : {text:value==='Costituzione e mantenimento annuale'?'La costituzione parte da € 1.500. Ora calcoliamo separatamente il mantenimento annuale.':'Perfetto. Ti guido nel calcolo del mantenimento annuale della SRL.'},
+      next:value => value==='Solo costituzione'?null:'srl_annual_revenue'
+    },
+    srl_annual_revenue: {
+      prompt:'Qual è il fatturato o ammontare dei ricavi annui indicativi della SRL?', input:'number', carry:'srlRevenue', next:'srl_annual_entries',
+      resolve:value => toNumber(value,0)>0?null:{text:'Indicami un fatturato annuo approssimativo, ad esempio 100000.',repeat:true}
+    },
+    srl_annual_entries: {
+      prompt:'Quante registrazioni o articoli in partita doppia prevedi in un anno? Considera fatture, banca e altre operazioni contabili.', input:'number', carry:'srlEntries', next:'srl_annual_assets',
+      resolve:value => toNumber(value,0)>0?null:{text:'Indicami un numero approssimativo di registrazioni annuali, ad esempio 500.',repeat:true}
+    },
+    srl_annual_assets: {
+      prompt:'Qual è indicativamente l’ammontare dell’attivo patrimoniale o delle perdite da considerare per il bilancio?', input:'number', carry:'srlAssets', next:'srl_annual_iva',
+      resolve:value => toNumber(value,0)>0?null:{text:'Indicami un valore approssimativo dell’attivo patrimoniale, ad esempio 100000.',repeat:true}
+    },
+    srl_annual_iva: {
+      prompt:'La SRL deve includere anche la dichiarazione IVA nella stima?', options:['Sì','No','Non lo so'], carry:'srlIva', next:'srl_annual_f24',
+      resolve:value => value==='Non lo so'?{text:'La includerò come voce prudenziale nella stima preliminare; lo Studio potrà confermarla o rimuoverla.'}:null
+    },
+    srl_annual_f24: {
+      prompt:'Quante scadenze F24 vuoi far gestire dallo Studio durante l’anno? Inserisci 0 se non vuoi includerle.', input:'number', carry:'srlF24', next:'srl_annual_employees',
+      resolve:value => toNumber(value,-1)>=0?null:{text:'Inserisci un numero uguale o superiore a 0.',repeat:true}
+    },
+    srl_annual_employees: {
+      prompt:'Quanti dipendenti devono essere gestiti ogni mese? Inserisci 0 se la società non ha dipendenti.', input:'number', carry:'srlEmployees', next:'srl_annual_invoices',
+      resolve:value => {
+        const n=toNumber(value,-1);
+        if(n<0) return {text:'Inserisci un numero uguale o superiore a 0.',repeat:true};
+        if(n>60) return {text:'Per più di 60 dipendenti è necessaria una valutazione specifica dello Studio.',contact:true,repeat:true};
+        return null;
+      }
+    },
+    srl_annual_invoices: {
+      prompt:'Quante fatture elettroniche vuoi far elaborare e inviare dallo Studio nell’anno? Inserisci 0 se le gestisci autonomamente.', input:'number', carry:'srlElectronicInvoices', next:'srl_annual_visure',
+      resolve:value => toNumber(value,-1)>=0?null:{text:'Inserisci un numero uguale o superiore a 0.',repeat:true}
+    },
+    srl_annual_visure: {
+      prompt:'Quante visure online prevedi di richiedere nell’anno? Inserisci 0 se non vuoi includerle.', input:'number', carry:'srlVisure',
+      resolve:(value,ctx) => {
+        const visure=toNumber(value,-1);
+        if(visure<0) return {text:'Inserisci un numero uguale o superiore a 0.',repeat:true};
+        const revenue=toNumber(ctx.srlRevenue,0), entries=toNumber(ctx.srlEntries,0), assets=toNumber(ctx.srlAssets,0);
+        const f24=Math.max(0,toNumber(ctx.srlF24,0)), employees=Math.max(0,toNumber(ctx.srlEmployees,0));
+        const electronicInvoices=Math.max(0,toNumber(ctx.srlElectronicInvoices,0));
+        const includeIva=ctx.srlIva!=='No';
+        const includeConstitution=ctx.includeConstitution===true || ctx.srlChoice==='Costituzione e mantenimento annuale';
+        const accounting=calculate(serviceById.cont_ordinaria,{articoli:entries,level:0});
+        const income=calculate(serviceById.redditi_tabella2,{ricavi:revenue,level:0});
+        const balance=calculate(serviceById.bilancio,{attivita:assets,componenti:revenue,level:0});
+        const iva=includeIva?calculate(serviceById.dich_iva,{volume:revenue,level:0}):null;
+        const items=[];
+        if(includeConstitution) items.push({key:'srl_constitution',title:'Costituzione SRL',amount:1500,annualAmount:1500,priceText:'A partire da € 1.500',note:'Voce una tantum, separata dal mantenimento annuale.',discountEligible:false});
+        const push=(key,title,amount,note='')=>{if(Number.isFinite(amount))items.push({key,title,amount,annualAmount:amount,priceText:`A partire da ${money(amount)}`,note,discountEligible:true});};
+        push('srl_accounting','Contabilità ordinaria',accounting.min ?? accounting.value,`Stima su circa ${entries} registrazioni annue.`);
+        push('srl_income','Dichiarazione dei redditi – società di capitali',income.min ?? income.value,`Stima su ricavi annui di ${money(revenue)}.`);
+        push('srl_balance','Redazione del bilancio',balance.min ?? balance.value,`Stima su attivo di ${money(assets)} e componenti positivi di ${money(revenue)}.`);
+        push('srl_balance_deposit','Deposito telematico del bilancio',370,'Comprensivo delle spese e dei bolli previsti dalla voce di listino.');
+        if(includeIva) push('srl_iva','Dichiarazione IVA',iva.min ?? iva.value,ctx.srlIva==='Non lo so'?'Inserita prudenzialmente; da confermare dallo Studio.':'Inclusa su richiesta.');
+        if(f24>0) push('srl_f24','Gestione F24 telematici',20*f24,`${f24} scadenze a € 20 ciascuna.`);
+        if(employees>0){
+          const monthly=DATA.payrollMonthly[String(employees)];
+          if(monthly) push('srl_payroll','Elaborazione base cedolini',monthly*12,`${employees} dipendent${employees===1?'e':'i'} per 12 mesi; tredicesima, quattordicesima e altri adempimenti sono separati.`);
+        }
+        if(electronicInvoices>0) push('srl_electronic_invoices','Elaborazione e invio fatture elettroniche',16*electronicInvoices,`${electronicInvoices} fatture annue al minimo di € 16 ciascuna.`);
+        if(visure>0) push('srl_visure','Visure online',40*visure,`${visure} visure a € 40 ciascuna.`);
+        const annualItems=items.filter(x=>x.key!=='srl_constitution');
+        const annualTotal=annualItems.reduce((sum,x)=>sum+(x.annualAmount||0),0);
+        const annualPackage=Math.round(annualTotal*.8*100)/100;
+        const lines=annualItems.map(x=>`${x.title}: ${x.priceText}`).join('; ');
+        const constitutionText=includeConstitution?' La costituzione resta una voce separata, a partire da € 1.500.':'';
+        return {text:`In base ai dati indicati, il mantenimento annuale della SRL parte complessivamente da ${money(annualTotal)} prima dello sconto pacchetto. Con uno sconto a partire dal 20%, la prima ipotesi di pacchetto annuo è ${money(annualPackage)}. ${lines}.${constitutionText} La stima deve essere verificata e validata dallo Studio. Se non hai altre domande, puoi elaborare la stima preliminare qui sotto.`,estimateItems:items};
+      }
+    },
     forfettario: {
       prompt:'Mediamente emetti fino a 10 fatture al mese oppure più di 10?',
       options:['Fino a 10 fatture al mese','Oltre 10 fatture al mese'],
@@ -812,13 +896,18 @@ button,input,select,textarea{max-width:100%}
   }
 
   function addClientMessage(role,text,opts={}){
-    state.clientConversation.messages.push({role,text,contact:!!opts.contact,question:opts.question||state.clientConversation.lastQuestion});
+    state.clientConversation.messages.push({
+      role,text,contact:!!opts.contact,question:opts.question||state.clientConversation.lastQuestion,
+      estimateItems:Array.isArray(opts.estimateItems)?opts.estimateItems:undefined
+    });
   }
 
   function startFollowUp(intent){
-    state.clientConversation.pending={step:intent.follow, context:{}};
+    state.clientConversation.pending={step:intent.follow, context:{...(intent.context||{})}, intentId:intent.id, originalQuestion:state.clientConversation.lastQuestion};
+    state.clientConversation.lastIntent=intent.id;
+    if(intent.intro) addClientMessage('bot',intent.intro,{question:state.clientConversation.lastQuestion});
     const flow=FOLLOW_UPS[intent.follow];
-    addClientMessage('bot',flow.prompt);
+    addClientMessage('bot',flow.prompt,{question:state.clientConversation.lastQuestion});
   }
 
   function handleFollowUp(answer){
@@ -827,19 +916,32 @@ button,input,select,textarea{max-width:100%}
     const flow=FOLLOW_UPS[pending.step];
     if(flow.carry) pending.context[flow.carry]=answer;
     let result=flow.resolve?flow.resolve(answer,pending.context):null;
-    const next=typeof flow.next==='function'?flow.next(answer):flow.next;
-    if(result){
-      const needsContact=/valutazione dello Studio|approvata dallo Studio|inoltrare/.test(result);
-      addClientMessage('bot',result,{contact:needsContact,question:state.clientConversation.lastQuestion});
+    const outcome=typeof result==='string'?{text:result}:result;
+    if(outcome?.context) Object.assign(pending.context,outcome.context);
+    if(outcome?.text){
+      const needsContact=outcome.contact||/valutazione dello Studio|approvata dallo Studio|inoltrare/.test(outcome.text);
+      addClientMessage('bot',outcome.text,{contact:needsContact,question:pending.originalQuestion||state.clientConversation.lastQuestion,estimateItems:outcome.estimateItems});
     }
+    if(outcome?.repeat) return true;
+    const next=outcome?.next ?? (typeof flow.next==='function'?flow.next(answer,pending.context):flow.next);
     if(next){
       pending.step=next;
       const newFlow=FOLLOW_UPS[next];
-      addClientMessage('bot',newFlow.prompt);
+      addClientMessage('bot',newFlow.prompt,{question:pending.originalQuestion||state.clientConversation.lastQuestion});
     }else{
+      state.clientConversation.lastIntent=pending.intentId||state.clientConversation.lastIntent;
       state.clientConversation.pending=null;
     }
     return true;
+  }
+
+  function contextualIntent(question){
+    const n=normalize(question);
+    const last=state.clientConversation.lastIntent;
+    const annual=/all anno|annuale|annuo|mantenimento|gestione dell anno|gestione annuale|costo fisso|quanto prendi/.test(n);
+    const affirmative=/^(si|sì|ok|va bene|procedi|continua|fammi il preventivo)$/.test(question.trim().toLowerCase());
+    if(last==='srl_constitution'&&(annual||affirmative)) return INTENTS.find(x=>x.id==='srl_annual');
+    return null;
   }
 
   function answerClientQuestion(text){
@@ -851,11 +953,12 @@ button,input,select,textarea{max-width:100%}
 
     if(handleFollowUp(question)) return;
 
-    const intent=findIntent(question);
+    const intent=contextualIntent(question)||findIntent(question);
     if(!intent){
       addClientMessage('bot','Ho capito l’argomento, ma non ho una regola abbastanza precisa per dare una risposta affidabile. Posso inoltrare la domanda a Pasquale De Caro, già compilata con il testo che hai scritto.',{contact:true,question});
       return;
     }
+    state.clientConversation.lastIntent=intent.id;
     if(intent.type==='guided'){
       startFollowUp(intent);
       return;
@@ -865,7 +968,7 @@ button,input,select,textarea{max-width:100%}
 
 
   const ESTIMATE_TITLES={
-    open_vat:'Apertura partita IVA',srl_constitution:'Costituzione SRL',close_business:'Chiusura attività',close_company:'Chiusura o liquidazione società',
+    open_vat:'Apertura partita IVA',srl_constitution:'Costituzione SRL',srl_cost_choice:'SRL',srl_full:'Costituzione e gestione SRL',srl_annual:'Mantenimento annuale SRL',close_business:'Chiusura attività',close_company:'Chiusura o liquidazione società',
     tax_planning:'Pianificazione fiscale',company_cost:'Calcolo completo del costo aziendale',forfettario_price:'Gestione annuale regime forfettario',
     accounting_price:'Gestione contabile',payroll_price:'Elaborazione cedolini',income_return:'Dichiarazione dei redditi',iva_return:'Dichiarazione IVA',
     succession_price:'Dichiarazione di successione',balance_price:'Redazione del bilancio',revision_price:'Revisione contabile',f730:'Modello 730',
@@ -901,7 +1004,7 @@ button,input,select,textarea{max-width:100%}
     let amount=values[0], annualAmount=amount, priceText=amount!==undefined?`A partire da ${money(amount)}`:'Da valutare', note='Importo preliminare ricavato dalla conversazione.';
 
     if(intent.id==='open_vat') return {key:'open_vat',title:ESTIMATE_TITLES.open_vat,amount:0,annualAmount:0,priceText:'Gratuita',note:'Gli adempimenti successivi sono preventivati separatamente.'};
-    if(['package','quarterly','validity','withdrawal','urgency','handover','retention','technical','srl_annual'].includes(intent.id)) return null;
+    if(['package','quarterly','validity','withdrawal','urgency','handover','retention','technical','srl_annual','srl_cost_choice','srl_full'].includes(intent.id)) return null;
     if(amount===undefined) return null;
 
     switch(intent.id){
@@ -957,18 +1060,21 @@ button,input,select,textarea{max-width:100%}
       default:
         priceText=`A partire da ${money(amount)}`;
     }
-    return {key:intent.id,title:ESTIMATE_TITLES[intent.id]||question,amount,annualAmount,priceText,note};
+    return {key:intent.id,title:ESTIMATE_TITLES[intent.id]||question,amount,annualAmount,priceText,note,discountEligible:intent.id!=='srl_constitution'};
   }
 
   function collectClientEstimateItems(){
     const items=[],seen=new Set();
-    state.clientConversation.messages.forEach(message=>{
-      if(message.role!=='bot') return;
-      const item=estimateItemFromMessage(message);
+    const add=item=>{
       if(!item) return;
-      const key=`${item.key}|${item.priceText}`;
+      const key=item.key||`${item.title}|${item.priceText}`;
       if(seen.has(key)) return;
       seen.add(key);items.push(item);
+    };
+    state.clientConversation.messages.forEach(message=>{
+      if(message.role!=='bot') return;
+      if(Array.isArray(message.estimateItems)) message.estimateItems.forEach(add);
+      else add(estimateItemFromMessage(message));
     });
     return items;
   }
@@ -993,8 +1099,10 @@ button,input,select,textarea{max-width:100%}
     const calculable=items.filter(item=>Number.isFinite(item.annualAmount));
     const individualTotal=calculable.reduce((sum,item)=>sum+item.annualAmount,0);
     const hasOpenItems=items.some(item=>!Number.isFinite(item.annualAmount));
-    const packageEligible=calculable.filter(item=>item.annualAmount>0).length>=2;
-    const packageTotal=packageEligible?Math.round(individualTotal*.8*100)/100:null;
+    const discountable=calculable.filter(item=>item.annualAmount>0&&item.discountEligible!==false);
+    const nonDiscountable=calculable.filter(item=>item.annualAmount>0&&item.discountEligible===false);
+    const packageEligible=discountable.length>=2;
+    const packageTotal=packageEligible?Math.round((nonDiscountable.reduce((sum,item)=>sum+item.annualAmount,0)+discountable.reduce((sum,item)=>sum+item.annualAmount,0)*.8)*100)/100:null;
     state.clientEstimate={
       createdAt:new Date().toISOString(),items,individualTotal,packageTotal,hasOpenItems,
       questions:clientQuestions(),area:inferConversationArea()
@@ -1267,7 +1375,7 @@ button,input,select,textarea{max-width:100%}
       chat:{messages:[],profile:{},questions:[],index:0,started:false,completed:false,uncertain:[]},
       portalRole:null, portalView:'role', consultantUnlocked:false, consultantLoginError:'',
       clientArea:'avvio', clientData:{name:'',email:'',phone:'',legalForm:''},
-      clientConversation:{messages:[],lastQuestion:'',pending:null}, clientEstimate:null
+      clientConversation:{messages:[],lastQuestion:'',lastIntent:'',pending:null}, clientEstimate:null
     });
     render();
   };
@@ -1315,7 +1423,7 @@ button,input,select,textarea{max-width:100%}
     }else if(id==='consultantLogout'){
       state.consultantUnlocked=false; state.portalRole=null; state.portalView='role'; render();
     }else if(id==='resetClientChat'){
-      state.clientConversation={messages:[],lastQuestion:'',pending:null}; state.clientEstimate=null; render();
+      state.clientConversation={messages:[],lastQuestion:'',lastIntent:'',pending:null}; state.clientEstimate=null; render();
     }else if(id==='buildClientEstimate'){
       createClientEstimate(); render(); requestAnimationFrame(()=>document.querySelector('.estimateCard')?.scrollIntoView({behavior:'smooth',block:'nearest'}));
     }else if(id==='sendEstimateEmail'){
