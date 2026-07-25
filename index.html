@@ -2352,7 +2352,222 @@ html,body {
     padding: 0 0 3px;
   }
 }
-  </style>
+  
+
+/* Esperienza chat naturale e adattamento universale */
+.assistantThinkingBubble { min-width: 54px; width: fit-content; }
+.assistantWritingCursor {
+  display:inline-block; width:2px; height:1.05em; margin-left:2px;
+  vertical-align:-.14em; background:currentColor; animation:assistantCursor .72s steps(1) infinite;
+}
+@keyframes assistantCursor { 50% { opacity:0; } }
+html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body { min-width:0; overflow-x:hidden; }
+img,svg,video,canvas { max-width:100%; height:auto; }
+button,input,textarea,select { font:inherit; }
+.assistantLayout,.assistantPanel,.assistantMessages,.assistantComposer,.assistantQuote { min-width:0; }
+.assistantComposer textarea { width:100%; max-width:100%; resize:vertical; font-size:16px; }
+.assistantMessages { overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
+.assistantChipRow,.assistantAreas { scrollbar-width:thin; }
+@supports (padding:max(0px)) {
+  .appHeader { padding-left:max(16px,env(safe-area-inset-left)); padding-right:max(16px,env(safe-area-inset-right)); }
+  .assistantComposer { padding-bottom:max(12px,env(safe-area-inset-bottom)); }
+}
+@media (hover:none) and (pointer:coarse) {
+  button,.btn,.assistantChip,.assistantChoice,.assistantArea { min-height:44px; }
+  .assistantFeedback button { min-width:44px; min-height:40px; }
+}
+@media (max-width:980px) {
+  .assistantLayout { width:100%; }
+  .assistantPanel { width:100%; }
+}
+@media (max-width:680px) {
+  main,.main,.appMain { padding-left:10px !important; padding-right:10px !important; }
+  .assistantHeader { overflow-wrap:anywhere; }
+  .assistantMessages { min-height:42svh; max-height:58svh; }
+  .assistantBubble { max-width:96%; }
+  .assistantComposer { position:sticky; bottom:0; z-index:4; background:#fff; }
+  .assistantSuggestions { overflow:hidden; }
+  .assistantChipRow { display:flex; overflow-x:auto; padding-bottom:4px; scroll-snap-type:x proximity; }
+  .assistantChip { flex:0 0 auto; scroll-snap-align:start; }
+  .assistantQuoteBody,.assistantQuoteSummary { overflow-wrap:anywhere; }
+}
+@media (max-width:430px) {
+  .assistantMessages { padding:10px 8px; }
+  .assistantBubble { font-size:.9rem; padding:10px 11px; }
+  .assistantHeader h2 { font-size:1.08rem; }
+  .assistantComposerActions { gap:7px; }
+  .assistantComposerActions .btn { padding:11px 8px; }
+}
+@media (max-width:340px) {
+  .assistantBubble { max-width:100%; }
+  .assistantHeader,.assistantComposer,.assistantSuggestions { padding-left:8px; padding-right:8px; }
+}
+@media (min-width:1600px) {
+  .assistantLayout { max-width:1480px; margin-inline:auto; }
+  .assistantBubble { max-width:min(78%,860px); }
+}
+@media (orientation:landscape) and (max-height:600px) and (pointer:coarse) {
+  .assistantMessages { min-height:210px; max-height:48vh; }
+  .assistantHeader p,.assistantHeaderMeta { display:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .assistantWritingCursor { animation:none; }
+}
+
+/* Correzione visibilità animazione e fallback preventivo */
+.assistantThinkingBubble{min-width:68px!important;min-height:48px;display:flex!important;align-items:center;justify-content:center}
+.assistantTypingDots{display:inline-flex!important;align-items:center;gap:7px;height:18px}
+.assistantTypingDots i{display:block;width:9px;height:9px;border-radius:50%;background:currentColor;opacity:.3;animation:assistantDot 1.05s infinite ease-in-out}
+.assistantTypingDots i:nth-child(2){animation-delay:.16s}.assistantTypingDots i:nth-child(3){animation-delay:.32s}
+@keyframes assistantDot{0%,70%,100%{transform:translateY(0);opacity:.28}35%{transform:translateY(-5px);opacity:1}}
+.assistantQuoteFallback{border-color:#9dcfd9}
+@media (prefers-reduced-motion:reduce){.assistantTypingDots i{animation-duration:1.6s}.assistantWritingCursor{animation-duration:1.2s}}
+
+
+/* Preventivo cliente leggibile e fluido su mobile */
+.assistantVisibleServices{margin:12px 0 4px;padding:12px;border:1px solid #c5e1e7;border-radius:14px;background:#f8fcfd}
+.assistantVisibleServices h3{margin:0 0 7px;font-size:.82rem;color:var(--navy)}
+.assistantBreakdownGroup h4{margin:8px 0 2px;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.assistantBreakdownRow{align-items:start;padding:10px 0;font-size:.82rem}
+.assistantBreakdownRow>strong{font-size:.9rem;color:var(--navy);white-space:nowrap;text-align:right}
+.assistantQuoteSummary{background:linear-gradient(135deg,#f5fbfc,#fff)}
+.assistantQuoteSummary strong{font-variant-numeric:tabular-nums;letter-spacing:-.025em}
+.assistantCostGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin:10px 0}
+.assistantCostCell{min-width:0;border:1px solid #d4e7eb;border-radius:13px;padding:10px;background:#fff}
+.assistantCostCell span,.assistantCostCell small{display:block;color:var(--muted);font-size:.68rem;line-height:1.25}
+.assistantCostCell strong{display:block;margin:3px 0;color:var(--navy);font-size:1.05rem;font-variant-numeric:tabular-nums}
+.assistantCostCell.featured{background:#eff9fb;border-color:#98d0da}
+.assistantChoices{gap:10px;margin-top:12px}
+.assistantChoice{min-width:88px;min-height:44px;padding:10px 18px;font-size:.9rem;touch-action:manipulation}
+.assistantFinalPanel{margin-top:0;padding:18px;border-top:1px solid #c9e0e5;background:linear-gradient(145deg,#edf8fa,#fff)}
+.assistantFinalPanel h3{font-size:1.05rem;color:var(--navy)}
+.assistantFinalActions .btn,.assistantFinalActions a{min-height:48px;display:flex;align-items:center;justify-content:center;line-height:1.25;touch-action:manipulation}
+@media (max-width:680px){
+ .assistantMessages{padding:10px;gap:10px}.assistantQuote{border-radius:16px;box-shadow:0 5px 16px rgba(11,40,56,.06)}
+ .assistantQuoteSummary{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:13px}.assistantQuoteSummary>div{min-width:0;flex:1}
+ .assistantQuoteSummary strong{font-size:1.45rem;line-height:1.08;overflow-wrap:normal;word-break:normal}.assistantQuoteSummary strong small{font-size:.72rem;margin-top:5px}
+ .assistantQuoteStatus{flex:0 0 auto;font-size:.6rem;padding:5px 7px}.assistantQuoteBody{padding:0 12px 13px}
+ .assistantCostGrid{grid-template-columns:1fr 1fr;gap:7px}.assistantCostCell{padding:9px}.assistantCostCell strong{font-size:1rem}
+ .assistantVisibleServices{padding:10px;margin-top:10px}.assistantBreakdownRow{grid-template-columns:minmax(0,1fr);gap:4px;padding:9px 0}.assistantBreakdownRow>strong{text-align:left;font-size:.95rem;white-space:normal}
+ .assistantAssumption{font-size:.8rem}.assistantFinalPanel{padding:16px 12px calc(16px + env(safe-area-inset-bottom))}
+ .assistantFinalActions{display:grid;grid-template-columns:1fr;gap:9px}.assistantFinalActions .btn,.assistantFinalActions a{width:100%;font-size:.86rem;padding:12px}
+ .assistantComposer textarea{font-size:16px;line-height:1.4}
+}
+@media (max-width:390px){.assistantCostGrid{grid-template-columns:1fr}.assistantQuoteSummary{display:grid;grid-template-columns:1fr}.assistantQuoteStatus{justify-self:start}}
+
+
+/* FIX DEFINITIVO: preventivo interamente visibile su iPhone, iPad e smartphone */
+.assistantQuote,
+.assistantQuoteBody,
+.assistantVisibleServices,
+.assistantBreakdown,
+.assistantCostGrid {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+.assistantQuoteBody {
+  display: block !important;
+  padding-top: 2px !important;
+}
+.assistantVisibleServices {
+  display: block !important;
+}
+@media (max-width: 680px) {
+  /* Su mobile scorre una sola pagina: niente finestra interna che nasconde il preventivo. */
+  .assistantMessages {
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+    overscroll-behavior: auto !important;
+  }
+  .assistantPanel,
+  .assistantLayout {
+    overflow: visible !important;
+  }
+  .assistantComposer {
+    position: relative !important;
+    bottom: auto !important;
+  }
+  .assistantQuote {
+    overflow: visible !important;
+    margin-bottom: 14px;
+  }
+  .assistantQuoteSummary {
+    position: relative;
+    z-index: 1;
+  }
+  .assistantQuoteBody {
+    padding: 8px 12px 16px !important;
+    border-top: 1px solid #d8e9ed;
+    background: #fff;
+  }
+  .assistantCostGrid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 9px !important;
+    margin: 4px 0 12px !important;
+  }
+  .assistantCostCell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "label value" "note value";
+    align-items: center;
+    column-gap: 12px;
+    padding: 12px !important;
+  }
+  .assistantCostCell span { grid-area: label; font-size: .78rem !important; }
+  .assistantCostCell strong { grid-area: value; margin: 0 !important; font-size: 1.18rem !important; white-space: nowrap; }
+  .assistantCostCell small { grid-area: note; margin-top: 3px; }
+  .assistantVisibleServices {
+    margin: 10px 0 8px !important;
+    padding: 12px !important;
+  }
+  .assistantVisibleServices h3 {
+    font-size: .9rem !important;
+    margin-bottom: 8px !important;
+  }
+  .assistantBreakdownRow {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) auto !important;
+    gap: 10px !important;
+    align-items: start !important;
+  }
+  .assistantBreakdownRow > strong {
+    text-align: right !important;
+    white-space: nowrap !important;
+  }
+  .assistantAssumption,
+  .assistantPaymentHint,
+  .assistantScope,
+  .assistantVersion {
+    overflow-wrap: anywhere;
+  }
+  /* La domanda finale parte solo dopo tutto il contenuto e resta ben separata. */
+  .assistantQuote + .assistantBubble.bot,
+  .assistantQuote + .assistantBubble.assistant {
+    margin-top: 4px;
+  }
+}
+@media (max-width: 390px) {
+  .assistantBreakdownRow {
+    grid-template-columns: 1fr !important;
+  }
+  .assistantBreakdownRow > strong {
+    text-align: left !important;
+    font-size: 1rem !important;
+  }
+  .assistantCostCell {
+    grid-template-columns: 1fr !important;
+    grid-template-areas: "label" "value" "note";
+  }
+  .assistantCostCell strong { margin-top: 4px !important; }
+}
+
+</style>
 </head>
 <body>
   <header class="appHeader" id="appHeader">
@@ -2373,7 +2588,7 @@ html,body {
   <div id="printRoot"></div>
 
   <script id="pricing-data" type="application/json">
-{"payrollMonthly":{"1":80,"2":121,"3":158,"4":194,"5":239,"6":273,"7":309,"8":350,"9":386,"10":418,"11":458,"12":491,"13":525,"14":555,"15":588,"16":621,"17":653,"18":681,"19":710,"20":740,"21":769,"22":798,"23":823,"24":855,"25":882,"26":908,"27":935,"28":963,"29":992,"30":1018,"31":1038,"32":1064,"33":1090,"34":1116,"35":1136,"36":1159,"37":1181,"38":1208,"39":1231,"40":1255,"41":1275,"42":1295,"43":1316,"44":1342,"45":1363,"46":1388,"47":1409,"48":1430,"49":1448,"50":1474,"51":1496,"52":1516,"53":1536,"54":1556,"55":1575,"56":1597,"57":1618,"58":1638,"59":1660,"60":1678},"tableRows":{"dichiarazioneIva":[{"label":"Fino a 75.000,00 Euro","to":75000,"min":191,"max":376},{"label":"da 75.001,00 a 150.000,00 Euro","from":75000.01,"to":150000,"min":240,"max":469},{"label":"da 150.000,01 a 300.000,00 Euro","from":150000.01,"to":300000,"min":299,"max":602},{"label":"da 300.000,01 a 500.000,00 Euro","from":300000.01,"to":500000,"min":375,"max":753},{"label":"da 500.000,01 a 750.000,00 Euro","from":500000.01,"to":750000,"min":450,"max":1050},{"label":"oltre 750.000,00 Euro","from":750000.01,"min":601,"max":1876}],"redditiTabella1":[{"label":"Fino a 75.000,00 Euro","to":75000,"min":300,"max":602},{"label":"da 75.001,00 a 150.000,00 Euro","from":75000.01,"to":150000,"min":539,"max":811},{"label":"da 150.000,01 a 300.000,00 Euro","from":150000.01,"to":300000,"min":720,"max":1082},{"label":"da 300.000,01 a 500.000,00 Euro","from":300000.01,"to":500000,"min":897,"max":1351},{"label":"da 500.000,01 a 750.000,00 Euro","from":500000.01,"to":750000,"min":1079,"max":1622},{"label":"oltre 750.000,00 Euro","from":750000.01,"min":1348,"max":2026}],"redditiTabella2":[{"label":"Fino a 150.000,00 Euro","to":150000,"min":528,"max":899},{"label":"Fino a 300.000,00 Euro","from":150000.01,"to":300000,"min":752,"max":1127},{"label":"da 300.000,01 a 500.000,00 Euro","from":300000.01,"to":500000,"min":1125,"max":1688},{"label":"da 500.000,01 a 1.500.000,00 Euro","from":500000.01,"to":1500000,"min":1499,"max":2254},{"label":"da 1.500.000,01 a 3.000.000,00 Euro","from":1500000.01,"to":3000000,"min":1870,"max":2815},{"label":"da 3.000.000,01 a 5.000.000,00 Euro","from":3000000.01,"to":5000000,"min":2249,"max":3378},{"label":"da 5.000.000,01 a 7.500.000,00 Euro","from":5000000.01,"to":7500000,"min":2621,"max":3943},{"label":"Oltre","from":7500000.01,"min":null,"max":null,"note":"a discrezione"}],"bilanciAttivitaPerdite":[{"label":"Fino a 130.000,00 Euro","to":130000,"min":361,"max":569},{"label":"da 130.000,01 a 500.000,00 Euro","from":130000.01,"to":500000,"min":569,"max":1001},{"label":"da 500.000,01 a 1.300.000,00 Euro","from":500000.01,"to":1300000,"min":1001,"max":1427},{"label":"da 1.300.000,01 a 2.600.000,00 Euro","from":1300000.01,"to":2600000,"min":1427,"max":2139},{"label":"da 2.600.000,01 a 5.750.000,00 Euro","from":2600000.01,"to":5750000,"min":2139,"max":2853},{"label":"Oltre, onorario minimo +0,005% su eccedenza","from":5750000.01,"min":2139,"max":null,"note":"massimo a discrezione"}],"bilanciComponentiPositivi":[{"label":"Fino a 150.000,00 Euro","to":150000,"min":361,"max":713},{"label":"Fino a 300.000,00 Euro","from":150000.01,"to":300000,"min":425,"max":784},{"label":"da 300.000,01 a 500.000,00 Euro","from":300000.01,"to":500000,"min":569,"max":1001},{"label":"da 500.000,01 a 1.500.000,00 Euro","from":500000.01,"to":1500000,"min":713,"max":1142},{"label":"da 1.500.000,01 a 3.000.000,00 Euro","from":1500000.01,"to":3000000,"min":1071,"max":1427},{"label":"da 3.000.000,01 a 5.000.000,00 Euro","from":3000000.01,"to":5000000,"min":1427,"max":2139},{"label":"da 5.000.000,01 a 7.500.000,00 Euro","from":5000000.01,"to":7500000,"min":2139,"max":2853},{"label":"Oltre","from":7500000.01,"min":null,"max":null,"note":"a discrezione"}],"collegioAttivitaPerdite":[{"label":"Fino a 1.000.000,00 Euro","to":1000000,"min":0,"max":2153},{"label":"da 1.000.000,01 a 3.000.000,00 Euro","from":1000000.01,"to":3000000,"min":2153,"max":3229},{"label":"da 3.000.000,01 a 7.000.000,00 Euro","from":3000000.01,"to":7000000,"min":3229,"max":4870},{"label":"Oltre 7.000.000,00 Euro: 525,00 € ogni milione o frazione","from":7000000.01,"min":null,"max":null,"note":"525 € ogni milione o frazione"}],"collegioComponentiPositivi":[{"label":"Fino a 1.500.000,00 Euro","to":1500000,"min":1625,"max":2706},{"label":"da 1.500.000,01 a 4.500.000,00 Euro","from":1500000.01,"to":4500000,"min":2706,"max":5413},{"label":"da 4.500.000,01 a 10.000.000,00 Euro","from":4500000.01,"to":10000000,"min":5413,"max":8119},{"label":"Oltre 10.000.000,00 Euro: 530,00 € ogni milione o frazione","from":10000000.01,"min":null,"max":null,"note":"530 € ogni milione o frazione"}],"revisioneContabile":[{"label":"fino a 500.000,00 Euro","to":500000,"fixed":5418},{"label":"da 500.000,01 fino a 1.000.000,00 Euro","from":500000.01,"to":1000000,"fixed":8663},{"label":"da 1.000.000,01 a 2.000.000,00 Euro","from":1000000.01,"to":2000000,"fixed":11917},{"label":"da 2.000.000,01 a 4.000.000,00 Euro","from":2000000.01,"to":4000000,"fixed":15172},{"label":"da 4.000.000,01 a 8.000.000,00 Euro","from":4000000.01,"to":8000000,"fixed":17336},{"label":"da 8.000.000,01 a 10.000.000,00 Euro","from":8000000.01,"to":10000000,"fixed":20585},{"label":"da 10.000.000,01 a 20.000.000,00 Euro","from":10000000.01,"to":20000000,"fixed":29258},{"label":"da 20.000.000,01 a 30.000.000,00 Euro","from":20000000.01,"to":30000000,"fixed":36844},{"label":"da 30.000.000,01 a 40.000.000,00 Euro","from":30000000.01,"to":40000000,"fixed":43344},{"label":"da 40.000.000,01 a 50.000.000,00 Euro","from":40000000.01,"to":50000000,"fixed":48761}],"redditometro":[{"label":"Fino a 10.000,00 Euro","to":10000,"min":80,"max":133},{"label":"da 10.000,01 a 50.000,00 Euro","from":10000.01,"to":50000,"min":145,"max":289},{"label":"da 50.000,01 a 500.000,00 Euro","from":50000.01,"to":500000,"min":316,"max":465},{"label":"Oltre a 500.000,01 Euro","from":500000.01,"min":477,"max":659}]},"sections":[{"id":"contabilita","title":"Contabilità","services":[{"id":"cont_semplificata","title":"Contabilità semplificata","kind":"formula","formula":"contabilitaSemplificata","pdfText":"Numero fatture o rilevazioni annue: fino a 90 onorario minimo € 1.192 annuo / € 99 mensile e massimo € 1.721 annuo / € 144 mensile; fino a 180 minimo € 1.599 annuo / € 134 mensile e massimo € 2.113 annuo / € 175 mensile; da 180 e fino a 360 minimo € 2.294 annuo / € 190 mensile e massimo € 3.457 annuo / € 288 mensile; ogni registrazione oltre le 360 € 1,65 minimo / € 2,35 massimo."},{"id":"cont_ordinaria","title":"Contabilità ordinaria","kind":"formula","formula":"contabilitaOrdinaria","pdfText":"Numero articoli in P.D. annuali: fino a 600 onorario minimo € 2.732 annuo / € 228 mensile e massimo € 3.985 annuo / € 332 mensile; oltre 600 fino a 2.000 € 2,75 minimo / € 4,00 massimo a registrazione; oltre 2.000 € 2,40 minimo / € 3,50 massimo a registrazione. Possibile maggiorazione 20%-50% se i dati vengono rilevati, oltre che dalla prima nota, anche da documenti forniti dal cliente."},{"id":"forfettari_fino_10","title":"Contribuenti minimi e forfettari — fino a 10 fatture/mese","kind":"range","min":510,"max":1220,"pdfText":"Attività con corrispettivi mensili prodotti su registro cartaceo e fatture emesse fino a 10/mese: redazione situazione contabile e relativa dichiarazione redditi da € 510 a € 1.220."},{"id":"forfettari_oltre_10","title":"Contribuenti minimi e forfettari — oltre 10 fatture/mese","kind":"range","min":760,"max":1520,"pdfText":"Attività con corrispettivi mensili prodotti su registro cartaceo e fatture emesse oltre 10/mese: redazione situazione contabile e relativa dichiarazione redditi da € 760 a € 1.520."},{"id":"forfettari_recupero_corrispettivi","title":"Maggiorazione annua recupero corrispettivi telematici ADE","kind":"fixed","fixed":300,"pdfText":"Maggiorazione annua recupero corrispettivi telematici da sito ADE € 300."},{"id":"forfettari_situazione_periodica","title":"Redazione situazione contabile periodica/infrannuale","kind":"fixed","fixed":77,"pdfText":"Redazione situazione contabile periodica/infrannuale € 77."},{"id":"ets_eas","title":"Enti del Terzo Settore — Modello EAS","kind":"range","min":80,"max":140,"pdfText":"Modello EAS: minimo € 80, massimo € 140."},{"id":"ets_5permille_iscrizione","title":"Enti del Terzo Settore — Iscrizione elenchi 5 per mille","kind":"range","min":80,"max":140,"pdfText":"Iscrizione elenchi 5 per mille: minimo € 80, massimo € 140."},{"id":"ets_5permille_rendicontazione","title":"Enti del Terzo Settore — Rendicontazione 5 per mille","kind":"range","min":120,"max":200,"pdfText":"Rendicontazione 5 per mille: minimo € 120, massimo € 200."},{"id":"ets_contributi_rendicontazione","title":"Enti del Terzo Settore — Rendicontazione contributi ricevuti","kind":"range","min":120,"max":200,"pdfText":"Rendicontazione contributi ricevuti: minimo € 120, massimo € 200."},{"id":"ets_runts","title":"Enti del Terzo Settore — Pratiche portale RUNTS","kind":"range","min":80,"max":160,"pdfText":"Pratiche portale RUNTS: minimo € 80, massimo € 160."},{"id":"ets_rnasd","title":"Enti del Terzo Settore — Pratiche portale RNASD","kind":"range","min":80,"max":160,"pdfText":"Pratiche portale RNASD: minimo € 80, massimo € 160."},{"id":"ets_affiliazione","title":"Enti del Terzo Settore — Pratiche affiliazione/iscrizione a enti nazionali","kind":"range","min":80,"max":160,"pdfText":"Pratiche affiliazione / iscrizione a enti nazionali: minimo € 80, massimo € 160."},{"id":"ets_statuto","title":"Enti del Terzo Settore — Predisposizione statuto ente sportivo o terzo settore","kind":"range","min":350,"max":500,"pdfText":"Predisposizione statuto ente sportivo o terzo settore: minimo € 350, massimo € 500."},{"id":"liquidazioni_iva_mensili","title":"Liquidazioni IVA mensili","kind":"fixed","fixed":50,"pdfText":"Liquidazioni Mensili: € 50."},{"id":"liquidazioni_iva_trimestrali","title":"Liquidazioni IVA trimestrali","kind":"fixed","fixed":72,"pdfText":"Liquidazioni Trimestrali: € 72."},{"id":"comunicazione_dati_iva","title":"Redazione e invio telematico comunicazione dati IVA","kind":"range","min":50,"max":128,"pdfText":"Redazione e invio telematico “comunicazione dati IVA”: min. € 50 - max. € 128."},{"id":"modello_iva_tr","title":"Modello IVA TR","kind":"range","min":50,"max":98,"pdfText":"Modello Iva TR: min. € 50 - max. € 98."},{"id":"situazioni_patrimoniali","title":"Predisposizione situazioni patrimoniali periodiche","kind":"minimum","fixed":120,"pdfText":"Predisposizione di situazioni patrimoniali periodiche: onorario minimo € 120."}]},{"id":"fatturazione_elettronica","title":"Fatturazione elettronica","services":[{"id":"fe_startup","title":"Startup fatturazione elettronica: delega, codice destinatario, consulenza normativa/tecnica","kind":"range","min":75,"max":320,"pdfText":"Conferimento delega servizi FE; comunicazione codice destinatario all’AdE; consulenza normativa e tecnica per elaborazione e ricezione in fase di startup: onorario da € 75 a € 320."},{"id":"fe_elaborazione_invio","title":"Elaborazione e invio fattura elettronica","kind":"unitRange","min":16,"max":38,"unit":"fattura","pdfText":"Elaborazione ed invio di fattura elettronica: onorario da € 16 a € 38 cadauna."},{"id":"fe_download_xml","title":"Richiesta e importazione file XML FE da Fatture e Corrispettivi/SDI","kind":"unitFixed","fixed":36,"unit":"download massivo","pdfText":"Servizio di richiesta ed importazione file xml fatture elettroniche da Fatture e Corrispettivi (SDI): € 36 per ciascun download massivo."},{"id":"fe_servizio_mensile_xml","title":"Servizio mensile invio file XML TD17, TD18, TD20 con contabilità gestita dallo studio","kind":"unitRange","min":33,"max":84,"unit":"mese","pdfText":"Servizio mensile invio file xml (TD17, TD18, TD20) contabilità gestita dallo studio: onorario minimo € 33, massimo € 84."}]},{"id":"personale","title":"Amministrazione del personale","services":[{"id":"cedolini","title":"Elaborazione cedolini — onorari base mensili per 1-60 dipendenti","kind":"formula","formula":"cedolini","pdfText":"Tabella onorari base mensili per dipendenti da 1 a 60: 1 € 80, 2 € 121, 3 € 158, 4 € 194, 5 € 239, 6 € 273, 7 € 309, 8 € 350, 9 € 386, 10 € 418, 11 € 458, 12 € 491, 13 € 525, 14 € 555, 15 € 588, 16 € 621, 17 € 653, 18 € 681, 19 € 710, 20 € 740, 21 € 769, 22 € 798, 23 € 823, 24 € 855, 25 € 882, 26 € 908, 27 € 935, 28 € 963, 29 € 992, 30 € 1.018, 31 € 1.038, 32 € 1.064, 33 € 1.090, 34 € 1.116, 35 € 1.136, 36 € 1.159, 37 € 1.181, 38 € 1.208, 39 € 1.231, 40 € 1.255, 41 € 1.275, 42 € 1.295, 43 € 1.316, 44 € 1.342, 45 € 1.363, 46 € 1.388, 47 € 1.409, 48 € 1.430, 49 € 1.448, 50 € 1.474, 51 € 1.496, 52 € 1.516, 53 € 1.536, 54 € 1.556, 55 € 1.575, 56 € 1.597, 57 € 1.618, 58 € 1.638, 59 € 1.660, 60 € 1.678."},{"id":"tredicesima","title":"13ª mensilità e conguagli fiscali","kind":"formula","formula":"mensilita100","pdfText":"13^ mensilità e conguagli fiscali: 100% dell’onorario di dicembre."},{"id":"quattordicesima","title":"14ª mensilità","kind":"formula","formula":"mensilita100","pdfText":"14^ mensilità: 100% dell’onorario di giugno."},{"id":"conguagli_730","title":"Conguagli 730","kind":"unitFixed","fixed":46,"unit":"conguaglio","pdfText":"Conguagli 730: € 46 cadauno."},{"id":"modello_770","title":"Modello 770","kind":"fixed","fixed":98,"pdfText":"Modello 770: € 98 fisso."},{"id":"modello_770_ordinario","title":"Modello 770 Ordinario","kind":"range","min":130,"max":230,"pdfText":"Modello 770 Ordinario: min. € 130 - max. € 230."},{"id":"certificazione_unica","title":"Certificazione Unica","kind":"formula","formula":"certificazioneUnica","pdfText":"Certificazione Unica: € 60 fisso + € 42 a nominativo dipendente + € 20 a nominativo professionista o collaboratore occasionale."},{"id":"uniemens","title":"Modelli Uniemens","kind":"formula","formula":"uniemens","pdfText":"Modelli Uniemens: € 40 fisso + € 4 a nominativo."},{"id":"denuncia_salari_inail","title":"Denuncia salari e autoliquidazione INAIL","kind":"formula","formula":"autoliquidazioneInail","pdfText":"Denuncia salari e autoliquidazione INAIL: solo titolare o soci senza dipendenti € 62; con dipendenti: 1 dip. € 72, 2 dip. € 86, 3 dip. € 92, oltre 3 dip. € 95 + € 4 per ogni dipendente in più, con massimo € 200."},{"id":"assunzione_dipendente","title":"Assunzione nuovo dipendente","kind":"unitFixed","fixed":61,"unit":"assunzione","pdfText":"Assunzioni nuovi dipendenti: € 61."},{"id":"assunzione_extracomunitario","title":"Assunzione extracomunitari","kind":"unitFixed","fixed":115,"unit":"assunzione","pdfText":"Assunzione Extracomunitari € 115."},{"id":"assunzione_apprendista","title":"Assunzione apprendista professionalizzante","kind":"fixed","fixed":200,"pdfText":"Assunzione appr. prof.te € 200, compreso piano formativo e comunicazione della scelta della formazione trasversale."},{"id":"piano_formativo_apprendista","title":"Piano formativo annuale per apprendista professionalizzante","kind":"range","min":260,"max":390,"pdfText":"Piano formativo annuale per apprendista professionalizzante da € 260 a € 390."},{"id":"tirocinio_formativo","title":"Instaurazione tirocini formativi: convenzione e progetto","kind":"range","min":390,"max":640,"pdfText":"Instaurazione tirocini formativi: convenzione e progetto da € 390 a € 640."},{"id":"liquidazioni_personale","title":"Liquidazioni","kind":"unitFixed","fixed":70,"unit":"liquidazione","pdfText":"Liquidazioni: € 70."},{"id":"conteggi_tfr_annuali","title":"Conteggi annuali T.F.R.","kind":"range","min":65,"max":195,"pdfText":"Conteggi annuali T.F.R.: min. € 65 – max. € 195."},{"id":"imprese_edili_maggiorazione","title":"Imprese edili — maggiorazione sulla tariffa base","kind":"formula","formula":"maggiorazioneEdili","pdfText":"Imprese edili: maggiorazione dal 10% al 30% sulla tariffa base."},{"id":"immatricolazione_inps_inail_asl","title":"Pratiche di immatricolazione INPS, INAIL, ASL","kind":"minimum","fixed":135,"pdfText":"Pratiche di immatricolazione (INPS, INAIL, ASL): € 135 minimo."},{"id":"variazione_pat","title":"Variazione PAT","kind":"fixed","fixed":60,"pdfText":"Variazione PAT € 60."},{"id":"assegni_nucleo_familiare","title":"Documentazione assegni nucleo familiare","kind":"unitFixed","fixed":38,"unit":"dipendente","pdfText":"Documentazione assegni nucleo familiare: € 38 a dipendente."},{"id":"dna_inail","title":"DNA all’INAIL di soci/collaboratori","kind":"unitFixed","fixed":16,"unit":"socio/collaboratore","pdfText":"DNA all’Inail di soci/collaboratori: € 16."},{"id":"cassa_integrazione","title":"Cassa integrazione","kind":"minimum","fixed":70,"pdfText":"Cassa integrazione: € 70 minimo."},{"id":"cassa_integrazione_straordinaria","title":"Cassa integrazione straordinaria","kind":"fixed","fixed":640,"pdfText":"Cassa integrazione straordinaria € 640."},{"id":"denunce_infortuni","title":"Denunce infortuni","kind":"unitFixed","fixed":65,"unit":"denuncia","pdfText":"Denunce infortuni: € 65."},{"id":"rateazione_contributive","title":"Domande di rateazione contributive","kind":"minimum","fixed":35,"pdfText":"Domande di rateazione contributive: € 35 minimo."},{"id":"personale_domestico_trimestrale","title":"Personale domestico — gestione trimestrale","kind":"unitFixed","fixed":65,"unit":"trimestre","pdfText":"Personale domestico: € 65 trimestrali."},{"id":"personale_domestico_ass_liq","title":"Personale domestico — assunzioni e liquidazioni","kind":"unitFixed","fixed":100,"unit":"adempimento","pdfText":"Personale domestico: assunzioni e liquidazioni € 100 cad."},{"id":"prospetto_paghe_contabilita","title":"Prospetto paghe e contributi per contabilità","kind":"unitFixed","fixed":20,"unit":"prospetto","pdfText":"Prospetto paghe e contributi per contabilità: € 20."},{"id":"durc_online","title":"Richiesta D.U.R.C. online","kind":"unitFixed","fixed":25,"unit":"richiesta","pdfText":"Richiesta D.U.R.C. online € 25."},{"id":"tfr_iscrizione_fondo","title":"Gestione T.F.R. — assistenza iscrizione dipendente al fondo","kind":"unitFixed","fixed":37,"unit":"dipendente","pdfText":"Assistenza per iscrizione del dipendente al fondo (una tantum) € 37,00."},{"id":"tfr_fisso_mensile_azienda","title":"Gestione T.F.R. — fisso mensile azienda con dipendenti iscritti","kind":"unitFixed","fixed":30,"unit":"mese","pdfText":"Fisso mensile per ogni azienda che ha dipendenti iscritti € 30."},{"id":"tfr_dipendente_iscritto","title":"Gestione T.F.R. — per ogni dipendente iscritto","kind":"unitFixed","fixed":20,"unit":"dipendente","pdfText":"Per ogni dipendente iscritto € 20."},{"id":"tfr_fondo_gestito","title":"Gestione T.F.R. — per ogni fondo gestito","kind":"unitFixed","fixed":20,"unit":"fondo","pdfText":"Per ogni fondo gestito: € 20."}]},{"id":"dichiarazioni_fiscali","title":"Dichiarazioni fiscali","services":[{"id":"dich_iva","title":"Dichiarazione IVA","kind":"formula","formula":"dichiarazioneIva","pdfText":"Dichiarazioni IVA per volume d’affari: fino a 75.000 € min 191 max 376; 75.001-150.000 min 240 max 469; 150.000,01-300.000 min 299 max 602; 300.000,01-500.000 min 375 max 753; 500.000,01-750.000 min 450 max 1.050; oltre 750.000 min 601 max 1.876."},{"id":"cert_credito_iva_studio","title":"Certificazione credito IVA con visto conformità — contabilità tenuta dallo studio","kind":"range","min":160,"max":430,"pdfText":"Certificazione del credito IVA con visto di conformità per clienti la cui contabilità è eseguita dallo studio: minimo € 160 - massimo € 430."},{"id":"cert_credito_iva_esterno","title":"Certificazione credito IVA con visto conformità — clientela esterna","kind":"formula","formula":"creditoIvaEsterno","pdfText":"Per clientela esterna va valutato caso per caso; 2% per importi inferiori a € 60.000 e 1% sulla parte eccedente per importi superiori, dei crediti oggetto di visto, con minimo € 265."},{"id":"redditi_tabella1","title":"Dichiarazione redditi — PF titolari partita IVA e società di persone con Redditi e IRAP","kind":"formula","formula":"redditiTabella1","pdfText":"Tabella 1: ricavi fino a 75.000 min 300 max 602; 75.001-150.000 min 539 max 811; 150.000,01-300.000 min 720 max 1.082; 300.000,01-500.000 min 897 max 1.351; 500.000,01-750.000 min 1.079 max 1.622; oltre 750.000 min 1.348 max 2.026."},{"id":"redditi_tabella2","title":"Dichiarazione redditi — Società di capitali","kind":"formula","formula":"redditiTabella2","pdfText":"Tabella 2 società di capitali: fino a 150.000 min 528 max 899; fino a 300.000 min 752 max 1.127; 300.000,01-500.000 min 1.125 max 1.688; 500.000,01-1.500.000 min 1.499 max 2.254; 1.500.000,01-3.000.000 min 1.870 max 2.815; 3.000.000,01-5.000.000 min 2.249 max 3.378; 5.000.000,01-7.500.000 min 2.621 max 3.943; oltre a discrezione."},{"id":"unico_pf_senza_piva","title":"Modello Unico persone fisiche senza partita IVA","kind":"minimum","fixed":130,"pdfText":"Onorari consigliati per redazione mod. Unico di persone fisiche senza partita IVA: minimo € 130."},{"id":"modello_730","title":"Modello 730","kind":"minimum","fixed":120,"pdfText":"Onorari consigliati per redazione mod. 730: minimo € 120."},{"id":"opzione_irap","title":"Comunicazione opzione IRAP","kind":"fixed","fixed":70,"pdfText":"Comunicazione opzione IRAP € 70."},{"id":"ace","title":"Calcolo deduzione ACE","kind":"range","min":130,"max":640,"pdfText":"Calcolo deduzione per capitale investito proprio (ACE) minimo € 130 massimo € 640."},{"id":"cert_crediti_imposta_studio","title":"Certificazione crediti d’imposta con visto conformità — contabilità tenuta dallo studio","kind":"range","min":190,"max":500,"pdfText":"Certificazione dei crediti d’imposta con visto di conformità per clienti la cui contabilità è eseguita dallo studio: minimo € 190 - massimo € 500."},{"id":"cert_crediti_imposta_esterno","title":"Certificazione crediti d’imposta con visto conformità — clientela esterna","kind":"formula","formula":"creditiImpostaEsterno","pdfText":"Per clientela esterna va valutato caso per caso; 2% per importi inferiori a € 60.000 e 1% sulla parte eccedente per importi superiori, dei crediti oggetto di visto, con minimo € 320."}]},{"id":"bilanci","title":"Bilanci","services":[{"id":"bilancio","title":"Bilancio — applicazione congiunta delle due tabelle","kind":"formula","formula":"bilanci","pdfText":"Tabella attività/perdite: fino a 130.000 min 361 max 569; 130.000,01-500.000 min 569 max 1.001; 500.000,01-1.300.000 min 1.001 max 1.427; 1.300.000,01-2.600.000 min 1.427 max 2.139; 2.600.000,01-5.750.000 min 2.139 max 2.853; oltre minimo +0,005% su eccedenza e massimo a discrezione. Tabella componenti positivi: fino a 150.000 min 361 max 713; fino a 300.000 min 425 max 784; 300.000,01-500.000 min 569 max 1.001; 500.000,01-1.500.000 min 713 max 1.142; 1.500.000,01-3.000.000 min 1.071 max 1.427; 3.000.000,01-5.000.000 min 1.427 max 2.139; 5.000.000,01-7.500.000 min 2.139 max 2.853; oltre a discrezione."},{"id":"invio_telematico_bilanci","title":"Predisposizione invio telematico bilanci società di capitali","kind":"fixed","fixed":370,"pdfText":"Predisposizione per l’invio telematico dei bilanci delle società di capitali € 370, comprensive delle spese e dei bolli."},{"id":"nomina_rinnovo_organo_amministrativo","title":"Nomina o rinnovo organo amministrativo società di capitali","kind":"fixed","fixed":440,"pdfText":"Adempimenti connessi alla nomina o al rinnovo dell’organo amministrativo delle società di capitali: € 440 escluso bolli e diritti."}]},{"id":"collegio_revisione","title":"Collegio sindacale - Revisione","services":[{"id":"collegio_sindacale","title":"Collegio sindacale","kind":"formula","formula":"collegioSindacale","pdfText":"Gli onorari del collegio sindacale sono determinati dall’applicazione congiunta: attività/perdite fino a 1.000.000 max 2.153; 1.000.000,01-3.000.000 min 2.153 max 3.229; 3.000.000,01-7.000.000 min 3.229 max 4.870; oltre 7.000.000 € 525 ogni milione o frazione. Componenti positivi: fino a 1.500.000 min 1.625 max 2.706; 1.500.000,01-4.500.000 min 2.706 max 5.413; 4.500.000,01-10.000.000 min 5.413 max 8.119; oltre 10.000.000 € 530 ogni milione o frazione. Presidente C.S. aumento fino 50%; Sindaco Unico aumento fino 80%; se il collegio svolge anche revisione i compensi si sommano e sulla revisione si propone riduzione non superiore al 25%."},{"id":"revisione_contabile","title":"Revisione contabile","kind":"formula","formula":"revisioneContabile","pdfText":"Revisione contabile per fatturato/attivo: fino 500.000 € 5.418; 500.000,01-1.000.000 € 8.663; 1.000.000,01-2.000.000 € 11.917; 2.000.000,01-4.000.000 € 15.172; 4.000.000,01-8.000.000 € 17.336; 8.000.000,01-10.000.000 € 20.585; 10.000.000,01-20.000.000 € 29.258; 20.000.000,01-30.000.000 € 36.844; 30.000.000,01-40.000.000 € 43.344; 40.000.000,01-50.000.000 € 48.761. Maggiorazione 15%-50% per collegate e controllate. Il valore di riferimento è la media dei due importi fatturato/attivo."},{"id":"attivita_affini_revisione","title":"Attività affini alla revisione: riordino contabilità, ispezioni, accertamento attendibilità bilanci, rendicontazioni","kind":"formula","formula":"revisioneContabile","pdfText":"La tabella revisione contabile può essere riferimento per riordino della contabilità, ispezioni amministrative e contabili, accertamento attendibilità bilanci, rendicontazioni."}]},{"id":"successione","title":"Dichiarazione di successione","services":[{"id":"successione_principale","title":"Predisposizione dichiarazione di successione","kind":"formula","formula":"successione","pdfText":"Predisposizione quadri EA eredi/chiamati, attivo ereditario immobili, attivo crediti/azioni/altro, EH dichiarazioni sostitutive agevolazioni riduzioni, calcolo imposte ipotecarie/catastali, calcolo imposta successione. € 700 onorario minimo fino ad un modulo per quadro; € 80 per ogni modulo in più; € 1.300 massimo per attivo ereditario rigo EE6 fino ad € 350.000; maggiorazioni per attivo superiore: 0,2% da € 350.000 a € 1.000.000 e 0,15% oltre € 1.000.000. Dichiarazione senza immobili minimo € 300; per ogni erede oltre il terzo € 50; per ogni immobile oltre il terzo € 30; per ogni cespite oltre il secondo € 25."},{"id":"successione_documentazione","title":"Predisposizione e raccolta documentazione successione","kind":"range","min":100,"max":300,"pdfText":"Predisposizione e raccolta documentazione: documenti identità/codici fiscali, atti notori, certificazioni bancarie/attività/passività, albero genealogico: € 100 minimo / € 300 massimo."},{"id":"successione_rinuncia_sessioni","title":"Rinuncia eredità e/o sessioni con altri professionisti","kind":"unitRange","min":100,"max":200,"unit":"pratica/sessione","pdfText":"Predisposizione documentazione per rinuncia eredità e/o sessioni con altri professionisti: da € 100 ad € 200 per pratica/sessione."},{"id":"successione_copie","title":"Produzione copie per eredi, istituti bancari e ricevute trasmissione","kind":"formula","formula":"copieSuccessione","pdfText":"Produzione copie per eredi, istituti bancari, stampe ricevute trasmissione: € 20 per prima copia documento prodotto dopo la prima; € 30 per ogni ulteriore copia."},{"id":"successione_trasferta","title":"Attività svolte in trasferta","kind":"manual","pdfText":"Per eventuali attività svolte in trasferta valgono le tariffe suggerite in altri paragrafi."},{"id":"successione_estero","title":"Successioni con cittadini/eredi italiani e non o attività/passività all’estero","kind":"manual","pdfText":"Per dichiarazioni di successione di cittadini/eredi italiani e non o con attività/passività anche all’estero gli onorari dovranno essere oggetto di specifica valutazione."}]},{"id":"altri_adempimenti","title":"Altri adempimenti","services":[{"id":"isa","title":"Compilazione questionari ISA","kind":"minimum","fixed":135,"pdfText":"Compilazione questionari ISA: minimo € 135."},{"id":"dichiarazione_imu","title":"Dichiarazione IMU","kind":"minimum","fixed":60,"pdfText":"Dichiarazione IMU: minimo € 60."},{"id":"cartelle_pazze_inail_inps","title":"Cartelle “pazze” INAIL/INPS","kind":"fixed","fixed":70,"pdfText":"Cartelle “pazze” INAIL/INPS: formazione fascicolo con presentazione documentazione: € 70."},{"id":"calcolo_imu_tasi","title":"Calcolo e predisposizione versamento IMU/TASI","kind":"minimum","fixed":50,"pdfText":"Calcolo e predisposizione versamento IMU/TASI a scadenza: minimo € 50."},{"id":"acconti_imposta","title":"Calcolo e predisposizione versamento acconti d’imposta","kind":"minimum","fixed":70,"pdfText":"Calcolo e predisposizione versamento acconti d’imposta: minimo € 70."},{"id":"intra","title":"Compilazione e presentazione mod. INTRA","kind":"unitFixed","fixed":70,"unit":"modello","pdfText":"Compilazione e presentazione mod. INTRA: € 70 minimo cad."},{"id":"tessera_sanitaria","title":"Compilazione e invio dati Sistema Tessera Sanitaria","kind":"range","min":190,"max":500,"pdfText":"Compilazione ed invio dati al sistema tessera sanitaria: da € 190 a € 500."},{"id":"dati_730_precompilato","title":"Dati propedeutici al 730 precompilato","kind":"range","min":190,"max":500,"pdfText":"Compilazione e invio dati propedeutici al 730 precompilato (ottici/onoranze funebri ecc.) da € 190 a € 500."},{"id":"modello_istat","title":"Modello ISTAT","kind":"minimum","fixed":70,"pdfText":"Modello ISTAT: € 70 minimo."},{"id":"altre_denunce_istanze","title":"Altre denunce, comunicazioni, istanze, esposti, memorie, risposte a questionari","kind":"minimum","fixed":70,"pdfText":"Altre denunce, comunicazioni, istanze, esposti, memorie, risposte a questionari indirizzati ad uffici finanziari: minimo € 70."},{"id":"invio_telematico_dich_fiscali","title":"Invio telematico dichiarazioni fiscali","kind":"minimum","fixed":70,"pdfText":"Invio telematico dichiarazioni fiscali: minimo € 70."},{"id":"lettere_intento","title":"Invio telematico lettere d’intento","kind":"formula","formula":"lettereIntento","pdfText":"Invio telematico lettere d’intento: € 100 fisse + € 6 ogni lettera di intento per il primo invio; € 50 fisse + € 6 per ogni lettera di intento agli invii successivi."},{"id":"smart_card_richiesta","title":"Pratiche richiesta e rilascio smart card","kind":"unitFixed","fixed":65,"unit":"smart card","pdfText":"Pratiche per richiesta e rilascio smart card € 65 cad."},{"id":"smart_card_custodia","title":"Custodia smart card","kind":"unitFixed","fixed":50,"unit":"smart card/anno","pdfText":"Custodia smart card € 50 cad. all’anno."},{"id":"variazione_codici_attivita","title":"Variazioni codici attività","kind":"fixed","fixed":50,"pdfText":"Variazioni codici attività € 50."},{"id":"adeguamenti_statuti_capitali","title":"Adeguamenti statuti società di capitali","kind":"minimum","fixed":620,"pdfText":"Adeguamenti statuti delle società di capitali, minimo € 620."},{"id":"visure_online","title":"Visure on-line","kind":"unitFixed","fixed":40,"unit":"visura","pdfText":"Visure on-line € 40."},{"id":"certificati_online","title":"Certificati on-line","kind":"unitFixed","fixed":50,"unit":"certificato","pdfText":"Certificati on-line € 50."},{"id":"contratti_locazione","title":"Registrazione telematica contratti di locazione","kind":"unitFixed","fixed":185,"unit":"contratto","pdfText":"Registrazione telematica dei contratti di locazione: € 185 per ogni contratto."},{"id":"consulenza_vacazione","title":"Consulenza — onorario a vacazione","kind":"unitFixed","fixed":115,"unit":"sessione/ora","pdfText":"Consulenza – onorario a vacazione (1 sessione = 1 ora) € 115 minimo."},{"id":"assistenza_verifiche","title":"Assistenza a verifiche fiscali e CDL","kind":"minimum","fixed":275,"pdfText":"Assistenza a verifiche Fiscali e CDL: € 275 minimo."},{"id":"pagamento_f24","title":"Pagamento F24 telematico","kind":"unitFixed","fixed":20,"unit":"scadenza","pdfText":"Pagamento F24 telematico: € 20 a scadenza."},{"id":"rimborso_ires_irpef_irap","title":"Pratica rimborso Ires-Irpef per mancata deduzione Irap","kind":"range","min":125,"max":330,"pdfText":"Pratica rimborso Ires-Irpef per mancata deduzione Irap con relativo invio telematico: minimo € 125, massimo € 330."},{"id":"rinnovo_annuale_deleghe","title":"Assistenza/pratiche rinnovo annuale smart card, cassetto fiscale, deleghe AdE","kind":"unitFixed","fixed":65,"unit":"rinnovo","pdfText":"Assistenza/pratiche rinnovo annuale (es.: smart card; cassetto fiscale, deleghe, ecc. su sito AdE) € 65."},{"id":"verifica_crediti_fiscali","title":"Verifica periodica piattaforma crediti fiscali e gestione/impiego crediti","kind":"fixed","fixed":530,"pdfText":"Assistenza per la verifica periodica della piattaforma dei crediti fiscali (es.: da sconto in fattura), la gestione e l’impiego dei crediti fiscali € 530 annue."},{"id":"gestione_pec","title":"Assistenza/gestione posta elettronica anche certificata","kind":"unitFixed","fixed":16,"unit":"mese","pdfText":"Assistenza/gestione posta elettronica anche certificata € 16 mensili."},{"id":"titolare_effettivo","title":"Pratica Registro Imprese comunicazione titolare effettivo","kind":"range","min":105,"max":155,"pdfText":"Pratica Registro Imprese comunicazione del titolare effettivo: da € 105 a € 155."},{"id":"registratori_pos","title":"Collegamento Registratori Telematici ai POS","kind":"formula","formula":"registratoriPos","pdfText":"Collegamento Registratori Telematici ai POS: fino a due apparati da collegare minimo € 60 per ogni apparato. Oltre i due apparati e per situazioni più complesse l’onorario è da calcolarsi a vacazione. Per nuovi collegamenti o dismissioni onorario minimo € 50 per apparato."}]},{"id":"cpb","title":"Concordato Preventivo Biennale","services":[{"id":"cpb_forfettari","title":"CPB — Contribuenti forfettari","kind":"range","min":167,"max":268,"pdfText":"Concordato Preventivo Biennale: contribuenti forfettari min. € 167 max € 268."},{"id":"cpb_imprese_soc_persone","title":"CPB — Imprese individuali e società di persone","kind":"range","min":218,"max":622,"pdfText":"Concordato Preventivo Biennale: imprese individuali e società di persone min. € 218 max € 622."},{"id":"cpb_soc_capitali","title":"CPB — Società di capitali","kind":"range","min":319,"max":840,"pdfText":"Concordato Preventivo Biennale: società di capitali min. € 319 max € 840."}]},{"id":"covid","title":"Assistenza COVID-19 e Temporary Framework","services":[{"id":"covid_bonus","title":"Assistenza richiesta “bonus”","kind":"range","min":38,"max":70,"pdfText":"Assistenza richiesta “bonus” da € 38 a € 70."},{"id":"covid_cassa_integrazione","title":"Cassa integrazione COVID-19","kind":"range","min":300,"max":620,"pdfText":"Cassa integrazione da € 300 a € 620."},{"id":"covid_finanziamenti_dl23","title":"Prima assistenza richiesta finanziamenti D.L. 23/2020","kind":"range","min":235,"max":690,"pdfText":"Prima assistenza nella richiesta di finanziamenti D.L. 23 del 8/4/2020: da € 235 a € 690. Per pratiche più complesse trattativa concordata singolarmente."},{"id":"covid_contributo_fondo_perduto","title":"Calcolo contributo a fondo perduto e pratica telematica","kind":"formula","formula":"contributoFondoPerduto","pdfText":"Calcolo del contributo a fondo perduto e relativa pratica telematica: minimo € 185 per ditte individuali e € 250 per società, oltre al 5% del contributo eccedente € 2.000, con compenso massimo € 870. Per pratiche particolarmente complesse trattativa concordata singolarmente."},{"id":"covid_istanza_sostegni","title":"Redazione e invio istanza contributi a fondo perduto Decreto Sostegni/Sostegni-bis","kind":"range","min":97,"max":300,"pdfText":"Redazione ed invio del modulo ISTANZA PER IL RICONOSCIMENTO DEI CONTRIBUTI A FONDO PERDUTO – DECRETO SOSTEGNI E SOSTEGNI-BIS: da € 97 a € 300."},{"id":"tf_quadro_es","title":"Temporary Framework — solo quadro ES","kind":"fixed","fixed":97,"pdfText":"Dichiarazione sostitutiva atto notorio requisiti sezioni 3.1 e 3.12 Temporary Framework: compilazione e invio telematico del solo quadro ES € 97."},{"id":"tf_modello_ordinario_31","title":"Temporary Framework — modello ordinario sezione 3.1","kind":"range","min":235,"max":470,"pdfText":"Compilazione ed invio modello ordinario, limitato alla sezione 3.1: da € 235 a € 470."},{"id":"tf_modello_ordinario_31_312","title":"Temporary Framework — modello ordinario sezioni 3.1 e 3.12","kind":"range","min":470,"max":940,"pdfText":"Compilazione ed invio modello ordinario sezioni 3.1 e 3.12: da € 470 a € 940."}]},{"id":"bonus_edilizia","title":"Visto di conformità Bonus Edilizia","services":[{"id":"visto_bonus_edilizia","title":"Visto conformità Bonus Edilizia","kind":"formula","formula":"bonusEdilizia","pdfText":"Pratiche con valore < € 200.000: 3%-4% con minimo € 600. Pratiche con valore > € 200.000: 1%-3%. In caso di lavori condominiali e singoli condomini per lavori trainati, le pratiche dovranno essere calcolate singolarmente."},{"id":"invio_comunicazione_bonus","title":"Compilazione modello e invio telematico comunicazione opzione cessione/sconto","kind":"minimum","fixed":180,"pdfText":"Invio comunicazioni opzione cessione credito/sconto in fattura interventi recupero edilizio, efficienza energetica, bonus facciate ecc.: compilazione modello e invio telematico € 180 minimo."},{"id":"annullamento_comunicazione_bonus","title":"Annullamento comunicazione opzione cessione/sconto","kind":"fixed","fixed":60,"pdfText":"Annullamento comunicazione € 60."},{"id":"gestione_crediti_bonus_ade","title":"Gestione crediti Bonus Edilizia su piattaforma AdE","kind":"unitFixed","fixed":100,"unit":"annualità","pdfText":"Gestione crediti da bonus Edilizia su piattaforma AdE: controllo e gestione crediti ceduti/acquisiti, utilizzo ed eventuale successiva cessione, minimo € 100 per annualità."},{"id":"gestione_piattaforme_banche","title":"Gestione piattaforme banche Deloitte, KPMG, ecc.","kind":"range","min":300,"max":1500,"pdfText":"Gestione piattaforme Banche: caricamento e gestione documentazione propedeutica alla cessione crediti sulle piattaforme banche, minimo € 300 massimo € 1.500 per singola pratica."}]},{"id":"accertamento_cartelle","title":"Assistenza accertamento redditometro e cartelle/ruoli","services":[{"id":"redditometro","title":"Assistenza accertamento redditometro","kind":"formula","formula":"redditometro","pdfText":"Assistenza accertamento redditometro: valore pratica fino a 10.000 min 80 max 133; 10.000,01-50.000 min 145 max 289; 50.000,01-500.000 min 316 max 465; oltre 500.000,01 min 477 max 659. Si intende l’esame e l’eventuale definizione con l’Agenzia delle Entrate."},{"id":"rottamazione_cartelle","title":"Rottamazione cartelle — presentazione richiesta definizione agevolata ruoli","kind":"range","min":250,"max":1700,"pdfText":"Presentazione richiesta definizione agevolata dei ruoli da € 250 a € 1.700."},{"id":"analisi_situazione_debitoria","title":"Analisi situazione debitoria con il cliente","kind":"manual","pdfText":"Analisi della situazione debitoria con il cliente: tariffazione oraria, perché le situazioni possibili sono infinite e la tariffa oraria è quella più adatta."},{"id":"richiesta_situazione_debitoria_equipro","title":"Richiesta situazione debitoria tramite Piattaforma digitale EquiPro","kind":"range","min":130,"max":300,"pdfText":"Richiesta della situazione debitoria tramite Piattaforma digitale EquiPro: da € 130 a € 300."},{"id":"rateazione_cartella","title":"Gestione ordinaria cartelle — richiesta rateazione cartella","kind":"range","min":130,"max":300,"pdfText":"Richiesta rateazione di cartella: da € 130 a € 300."},{"id":"pagamento_cartelle_avvisi","title":"Gestione ordinaria cartelle — pagamento cartelle e avvisi","kind":"range","min":60,"max":100,"pdfText":"Pagamento di cartelle e avvisi da € 60 a € 100."},{"id":"pagamento_rate_cartelle","title":"Gestione ordinaria cartelle — pagamento rate alla scadenza","kind":"unitFixed","fixed":25,"unit":"rata","pdfText":"Pagamento delle rate alla scadenza € 25,00 a rata."},{"id":"rateazione_avvisi_bonari","title":"Avvisi bonari — richiesta rateazione","kind":"range","min":60,"max":130,"pdfText":"Richiesta rateazione di avvisi bonari: da € 60 a € 130."},{"id":"pagamento_rate_avvisi_bonari","title":"Avvisi bonari — pagamento rate alla scadenza","kind":"unitFixed","fixed":25,"unit":"rata","pdfText":"Pagamento delle rate alla scadenza € 25,00 a rata."},{"id":"ravvedimenti_operosi","title":"Ravvedimenti operosi","kind":"unitFixed","fixed":38,"unit":"ravvedimento","pdfText":"Ravvedimenti operosi: € 38."}]}]}
+{"payrollMonthly":{"1":80,"2":121,"3":158,"4":194,"5":239,"6":273,"7":309,"8":350,"9":386,"10":418,"11":458,"12":491,"13":525,"14":555,"15":588,"16":621,"17":653,"18":681,"19":710,"20":740,"21":769,"22":798,"23":823,"24":855,"25":882,"26":908,"27":935,"28":963,"29":992,"30":1018,"31":1038,"32":1064,"33":1090,"34":1116,"35":1136,"36":1159,"37":1181,"38":1208,"39":1231,"40":1255,"41":1275,"42":1295,"43":1316,"44":1342,"45":1363,"46":1388,"47":1409,"48":1430,"49":1448,"50":1474,"51":1496,"52":1516,"53":1536,"54":1556,"55":1575,"56":1597,"57":1618,"58":1638,"59":1660,"60":1678},"tableRows":{"dichiarazioneIva":[{"label":"Fino a 75.000,00 Euro","to":75000,"min":191,"max":376},{"label":"da 75.001,00 a 150.000,00 Euro","from":75000.01,"to":150000,"min":240,"max":469},{"label":"da 150.000,01 a 300.000,00 Euro","from":150000.01,"to":300000,"min":299,"max":602},{"label":"da 300.000,01 a 500.000,00 Euro","from":300000.01,"to":500000,"min":375,"max":753},{"label":"da 500.000,01 a 750.000,00 Euro","from":500000.01,"to":750000,"min":450,"max":1050},{"label":"oltre 750.000,00 Euro","from":750000.01,"min":601,"max":1876}],"redditiTabella1":[{"label":"Fino a 75.000,00 Euro","to":75000,"min":300,"max":602},{"label":"da 75.001,00 a 150.000,00 Euro","from":75000.01,"to":150000,"min":539,"max":811},{"label":"da 150.000,01 a 300.000,00 Euro","from":150000.01,"to":300000,"min":720,"max":1082},{"label":"da 300.000,01 a 500.000,00 Euro","from":300000.01,"to":500000,"min":897,"max":1351},{"label":"da 500.000,01 a 750.000,00 Euro","from":500000.01,"to":750000,"min":1079,"max":1622},{"label":"oltre 750.000,00 Euro","from":750000.01,"min":1348,"max":2026}],"redditiTabella2":[{"label":"Fino a 150.000,00 Euro","to":150000,"min":528,"max":899},{"label":"Fino a 300.000,00 Euro","from":150000.01,"to":300000,"min":752,"max":1127},{"label":"da 300.000,01 a 500.000,00 Euro","from":300000.01,"to":500000,"min":1125,"max":1688},{"label":"da 500.000,01 a 1.500.000,00 Euro","from":500000.01,"to":1500000,"min":1499,"max":2254},{"label":"da 1.500.000,01 a 3.000.000,00 Euro","from":1500000.01,"to":3000000,"min":1870,"max":2815},{"label":"da 3.000.000,01 a 5.000.000,00 Euro","from":3000000.01,"to":5000000,"min":2249,"max":3378},{"label":"da 5.000.000,01 a 7.500.000,00 Euro","from":5000000.01,"to":7500000,"min":2621,"max":3943},{"label":"Oltre","from":7500000.01,"min":null,"max":null,"note":"a discrezione"}],"bilanciAttivitaPerdite":[{"label":"Fino a 130.000,00 Euro","to":130000,"min":361,"max":569},{"label":"da 130.000,01 a 500.000,00 Euro","from":130000.01,"to":500000,"min":569,"max":1001},{"label":"da 500.000,01 a 1.300.000,00 Euro","from":500000.01,"to":1300000,"min":1001,"max":1427},{"label":"da 1.300.000,01 a 2.600.000,00 Euro","from":1300000.01,"to":2600000,"min":1427,"max":2139},{"label":"da 2.600.000,01 a 5.750.000,00 Euro","from":2600000.01,"to":5750000,"min":2139,"max":2853},{"label":"Oltre, onorario minimo +0,005% su eccedenza","from":5750000.01,"min":2139,"max":null,"note":"massimo a discrezione"}],"bilanciComponentiPositivi":[{"label":"Fino a 150.000,00 Euro","to":150000,"min":361,"max":713},{"label":"Fino a 300.000,00 Euro","from":150000.01,"to":300000,"min":425,"max":784},{"label":"da 300.000,01 a 500.000,00 Euro","from":300000.01,"to":500000,"min":569,"max":1001},{"label":"da 500.000,01 a 1.500.000,00 Euro","from":500000.01,"to":1500000,"min":713,"max":1142},{"label":"da 1.500.000,01 a 3.000.000,00 Euro","from":1500000.01,"to":3000000,"min":1071,"max":1427},{"label":"da 3.000.000,01 a 5.000.000,00 Euro","from":3000000.01,"to":5000000,"min":1427,"max":2139},{"label":"da 5.000.000,01 a 7.500.000,00 Euro","from":5000000.01,"to":7500000,"min":2139,"max":2853},{"label":"Oltre","from":7500000.01,"min":null,"max":null,"note":"a discrezione"}],"collegioAttivitaPerdite":[{"label":"Fino a 1.000.000,00 Euro","to":1000000,"min":0,"max":2153},{"label":"da 1.000.000,01 a 3.000.000,00 Euro","from":1000000.01,"to":3000000,"min":2153,"max":3229},{"label":"da 3.000.000,01 a 7.000.000,00 Euro","from":3000000.01,"to":7000000,"min":3229,"max":4870},{"label":"Oltre 7.000.000,00 Euro: 525,00 € ogni milione o frazione","from":7000000.01,"min":null,"max":null,"note":"525 € ogni milione o frazione"}],"collegioComponentiPositivi":[{"label":"Fino a 1.500.000,00 Euro","to":1500000,"min":1625,"max":2706},{"label":"da 1.500.000,01 a 4.500.000,00 Euro","from":1500000.01,"to":4500000,"min":2706,"max":5413},{"label":"da 4.500.000,01 a 10.000.000,00 Euro","from":4500000.01,"to":10000000,"min":5413,"max":8119},{"label":"Oltre 10.000.000,00 Euro: 530,00 € ogni milione o frazione","from":10000000.01,"min":null,"max":null,"note":"530 € ogni milione o frazione"}],"revisioneContabile":[{"label":"fino a 500.000,00 Euro","to":500000,"fixed":5418},{"label":"da 500.000,01 fino a 1.000.000,00 Euro","from":500000.01,"to":1000000,"fixed":8663},{"label":"da 1.000.000,01 a 2.000.000,00 Euro","from":1000000.01,"to":2000000,"fixed":11917},{"label":"da 2.000.000,01 a 4.000.000,00 Euro","from":2000000.01,"to":4000000,"fixed":15172},{"label":"da 4.000.000,01 a 8.000.000,00 Euro","from":4000000.01,"to":8000000,"fixed":17336},{"label":"da 8.000.000,01 a 10.000.000,00 Euro","from":8000000.01,"to":10000000,"fixed":20585},{"label":"da 10.000.000,01 a 20.000.000,00 Euro","from":10000000.01,"to":20000000,"fixed":29258},{"label":"da 20.000.000,01 a 30.000.000,00 Euro","from":20000000.01,"to":30000000,"fixed":36844},{"label":"da 30.000.000,01 a 40.000.000,00 Euro","from":30000000.01,"to":40000000,"fixed":43344},{"label":"da 40.000.000,01 a 50.000.000,00 Euro","from":40000000.01,"to":50000000,"fixed":48761}],"redditometro":[{"label":"Fino a 10.000,00 Euro","to":10000,"min":80,"max":133},{"label":"da 10.000,01 a 50.000,00 Euro","from":10000.01,"to":50000,"min":145,"max":289},{"label":"da 50.000,01 a 500.000,00 Euro","from":50000.01,"to":500000,"min":316,"max":465},{"label":"Oltre a 500.000,01 Euro","from":500000.01,"min":477,"max":659}]},"sections":[{"id":"contabilita","title":"Contabilità","services":[{"id":"cont_semplificata","title":"Contabilità semplificata","kind":"formula","formula":"contabilitaSemplificata","pdfText":"Numero fatture o rilevazioni annue: fino a 90 onorario minimo € 1.192 annuo / € 99 mensile e massimo € 1.721 annuo / € 144 mensile; fino a 180 minimo € 1.599 annuo / € 134 mensile e massimo € 2.113 annuo / € 175 mensile; da 180 e fino a 360 minimo € 2.294 annuo / € 190 mensile e massimo € 3.457 annuo / € 288 mensile; ogni registrazione oltre le 360 € 1,65 minimo / € 2,35 massimo."},{"id":"cont_ordinaria","title":"Contabilità ordinaria","kind":"formula","formula":"contabilitaOrdinaria","pdfText":"Numero articoli in P.D. annuali: fino a 600 onorario minimo € 2.732 annuo / € 228 mensile e massimo € 3.985 annuo / € 332 mensile; oltre 600 fino a 2.000 € 2,75 minimo / € 4,00 massimo a registrazione; oltre 2.000 € 2,40 minimo / € 3,50 massimo a registrazione. Possibile maggiorazione 20%-50% se i dati vengono rilevati, oltre che dalla prima nota, anche da documenti forniti dal cliente."},{"id":"forfettari_fino_10","title":"Contribuenti minimi e forfettari — fino a 10 fatture/mese","kind":"range","min":510,"max":1220,"pdfText":"Attività con corrispettivi mensili prodotti su registro cartaceo e fatture emesse fino a 10/mese: redazione situazione contabile e relativa dichiarazione redditi da € 510 a € 1.220."},{"id":"forfettari_oltre_10","title":"Contribuenti minimi e forfettari — oltre 10 fatture/mese","kind":"range","min":760,"max":1520,"pdfText":"Attività con corrispettivi mensili prodotti su registro cartaceo e fatture emesse oltre 10/mese: redazione situazione contabile e relativa dichiarazione redditi da € 760 a € 1.520."},{"id":"forfettari_recupero_corrispettivi","title":"Maggiorazione annua recupero corrispettivi telematici ADE","kind":"fixed","fixed":300,"pdfText":"Maggiorazione annua recupero corrispettivi telematici da sito ADE € 300."},{"id":"forfettari_situazione_periodica","title":"Redazione situazione contabile periodica/infrannuale","kind":"fixed","fixed":77,"pdfText":"Redazione situazione contabile periodica/infrannuale € 77."},{"id":"ets_eas","title":"Enti del Terzo Settore — Modello EAS","kind":"range","min":80,"max":140,"pdfText":"Modello EAS: minimo € 80, massimo € 140."},{"id":"ets_5permille_iscrizione","title":"Enti del Terzo Settore — Iscrizione elenchi 5 per mille","kind":"range","min":80,"max":140,"pdfText":"Iscrizione elenchi 5 per mille: minimo € 80, massimo € 140."},{"id":"ets_5permille_rendicontazione","title":"Enti del Terzo Settore — Rendicontazione 5 per mille","kind":"range","min":120,"max":200,"pdfText":"Rendicontazione 5 per mille: minimo € 120, massimo € 200."},{"id":"ets_contributi_rendicontazione","title":"Enti del Terzo Settore — Rendicontazione contributi ricevuti","kind":"range","min":120,"max":200,"pdfText":"Rendicontazione contributi ricevuti: minimo € 120, massimo € 200."},{"id":"ets_runts","title":"Enti del Terzo Settore — Pratiche portale RUNTS","kind":"range","min":80,"max":160,"pdfText":"Pratiche portale RUNTS: minimo € 80, massimo € 160."},{"id":"ets_rnasd","title":"Enti del Terzo Settore — Pratiche portale RNASD","kind":"range","min":80,"max":160,"pdfText":"Pratiche portale RNASD: minimo € 80, massimo € 160."},{"id":"ets_affiliazione","title":"Enti del Terzo Settore — Pratiche affiliazione/iscrizione a enti nazionali","kind":"range","min":80,"max":160,"pdfText":"Pratiche affiliazione / iscrizione a enti nazionali: minimo € 80, massimo € 160."},{"id":"ets_statuto","title":"Enti del Terzo Settore — Predisposizione statuto ente sportivo o terzo settore","kind":"range","min":350,"max":500,"pdfText":"Predisposizione statuto ente sportivo o terzo settore: minimo € 350, massimo € 500."},{"id":"liquidazioni_iva_mensili","title":"Liquidazioni IVA mensili","kind":"fixed","fixed":50,"pdfText":"Liquidazioni Mensili: € 50."},{"id":"liquidazioni_iva_trimestrali","title":"Liquidazioni IVA trimestrali","kind":"fixed","fixed":72,"pdfText":"Liquidazioni Trimestrali: € 72."},{"id":"comunicazione_dati_iva","title":"Redazione e invio telematico comunicazione dati IVA","kind":"range","min":50,"max":128,"pdfText":"Redazione e invio telematico “comunicazione dati IVA”: min. € 50 - max. € 128."},{"id":"modello_iva_tr","title":"Modello IVA TR","kind":"range","min":50,"max":98,"pdfText":"Modello Iva TR: min. € 50 - max. € 98."},{"id":"situazioni_patrimoniali","title":"Predisposizione situazioni patrimoniali periodiche","kind":"minimum","fixed":120,"pdfText":"Predisposizione di situazioni patrimoniali periodiche: onorario minimo € 120."}]},{"id":"fatturazione_elettronica","title":"Fatturazione elettronica","services":[{"id":"fe_startup","title":"Startup fatturazione elettronica: delega, codice destinatario, consulenza normativa/tecnica","kind":"range","min":75,"max":320,"pdfText":"Conferimento delega servizi FE; comunicazione codice destinatario all’AdE; consulenza normativa e tecnica per elaborazione e ricezione in fase di startup: onorario da € 75 a € 320."},{"id":"fe_elaborazione_invio","title":"Elaborazione e invio fattura elettronica","kind":"unitRange","min":16,"max":38,"unit":"fattura","pdfText":"Elaborazione ed invio di fattura elettronica: onorario da € 16 a € 38 cadauna."},{"id":"fe_download_xml","title":"Richiesta e importazione file XML FE da Fatture e Corrispettivi/SDI","kind":"unitFixed","fixed":36,"unit":"download massivo","pdfText":"Servizio di richiesta ed importazione file xml fatture elettroniche da Fatture e Corrispettivi (SDI): € 36 per ciascun download massivo."},{"id":"fe_servizio_mensile_xml","title":"Servizio mensile invio file XML TD17, TD18, TD20 con contabilità gestita dallo studio","kind":"unitRange","min":33,"max":84,"unit":"mese","pdfText":"Servizio mensile invio file xml (TD17, TD18, TD20) contabilità gestita dallo studio: onorario minimo € 33, massimo € 84."}]},{"id":"personale","title":"Amministrazione del personale","services":[{"id":"cedolini","title":"Elaborazione cedolini — onorari base mensili per 1-60 dipendenti","kind":"formula","formula":"cedolini","pdfText":"Tabella onorari base mensili per dipendenti da 1 a 60: 1 € 80, 2 € 121, 3 € 158, 4 € 194, 5 € 239, 6 € 273, 7 € 309, 8 € 350, 9 € 386, 10 € 418, 11 € 458, 12 € 491, 13 € 525, 14 € 555, 15 € 588, 16 € 621, 17 € 653, 18 € 681, 19 € 710, 20 € 740, 21 € 769, 22 € 798, 23 € 823, 24 € 855, 25 € 882, 26 € 908, 27 € 935, 28 € 963, 29 € 992, 30 € 1.018, 31 € 1.038, 32 € 1.064, 33 € 1.090, 34 € 1.116, 35 € 1.136, 36 € 1.159, 37 € 1.181, 38 € 1.208, 39 € 1.231, 40 € 1.255, 41 € 1.275, 42 € 1.295, 43 € 1.316, 44 € 1.342, 45 € 1.363, 46 € 1.388, 47 € 1.409, 48 € 1.430, 49 € 1.448, 50 € 1.474, 51 € 1.496, 52 € 1.516, 53 € 1.536, 54 € 1.556, 55 € 1.575, 56 € 1.597, 57 € 1.618, 58 € 1.638, 59 € 1.660, 60 € 1.678."},{"id":"tredicesima","title":"13ª mensilità e conguagli fiscali","kind":"formula","formula":"mensilita100","pdfText":"13^ mensilità e conguagli fiscali: 100% dell’onorario di dicembre."},{"id":"quattordicesima","title":"14ª mensilità","kind":"formula","formula":"mensilita100","pdfText":"14^ mensilità: 100% dell’onorario di giugno."},{"id":"conguagli_730","title":"Conguagli 730","kind":"unitFixed","fixed":46,"unit":"conguaglio","pdfText":"Conguagli 730: € 46 cadauno."},{"id":"modello_770","title":"Modello 770","kind":"fixed","fixed":98,"pdfText":"Modello 770: € 98 fisso."},{"id":"modello_770_ordinario","title":"Modello 770 Ordinario","kind":"range","min":130,"max":230,"pdfText":"Modello 770 Ordinario: min. € 130 - max. € 230."},{"id":"certificazione_unica","title":"Certificazione Unica","kind":"formula","formula":"certificazioneUnica","pdfText":"Certificazione Unica: € 60 fisso + € 42 a nominativo dipendente + € 20 a nominativo professionista o collaboratore occasionale."},{"id":"uniemens","title":"Modelli Uniemens","kind":"formula","formula":"uniemens","pdfText":"Modelli Uniemens: € 40 fisso + € 4 a nominativo."},{"id":"denuncia_salari_inail","title":"Denuncia salari e autoliquidazione INAIL","kind":"formula","formula":"autoliquidazioneInail","pdfText":"Denuncia salari e autoliquidazione INAIL: solo titolare o soci senza dipendenti € 62; con dipendenti: 1 dip. € 72, 2 dip. € 86, 3 dip. € 92, oltre 3 dip. € 95 + € 4 per ogni dipendente in più, con massimo € 200."},{"id":"assunzione_dipendente","title":"Assunzione nuovo dipendente","kind":"unitFixed","fixed":61,"unit":"assunzione","pdfText":"Assunzioni nuovi dipendenti: € 61."},{"id":"assunzione_extracomunitario","title":"Assunzione extracomunitari","kind":"unitFixed","fixed":115,"unit":"assunzione","pdfText":"Assunzione Extracomunitari € 115."},{"id":"assunzione_apprendista","title":"Assunzione apprendista professionalizzante","kind":"fixed","fixed":200,"pdfText":"Assunzione appr. prof.te € 200, compreso piano formativo e comunicazione della scelta della formazione trasversale."},{"id":"piano_formativo_apprendista","title":"Piano formativo annuale per apprendista professionalizzante","kind":"range","min":260,"max":390,"pdfText":"Piano formativo annuale per apprendista professionalizzante da € 260 a € 390."},{"id":"tirocinio_formativo","title":"Instaurazione tirocini formativi: convenzione e progetto","kind":"range","min":390,"max":640,"pdfText":"Instaurazione tirocini formativi: convenzione e progetto da € 390 a € 640."},{"id":"liquidazioni_personale","title":"Liquidazioni","kind":"unitFixed","fixed":70,"unit":"liquidazione","pdfText":"Liquidazioni: € 70."},{"id":"conteggi_tfr_annuali","title":"Conteggi annuali T.F.R.","kind":"range","min":65,"max":195,"pdfText":"Conteggi annuali T.F.R.: min. € 65 – max. € 195."},{"id":"imprese_edili_maggiorazione","title":"Imprese edili — maggiorazione sulla tariffa base","kind":"formula","formula":"maggiorazioneEdili","pdfText":"Imprese edili: maggiorazione dal 10% al 30% sulla tariffa base."},{"id":"immatricolazione_inps_inail_asl","title":"Pratiche di immatricolazione INPS, INAIL, ASL","kind":"minimum","fixed":135,"pdfText":"Pratiche di immatricolazione (INPS, INAIL, ASL): € 135 minimo."},{"id":"variazione_pat","title":"Variazione PAT","kind":"fixed","fixed":60,"pdfText":"Variazione PAT € 60."},{"id":"assegni_nucleo_familiare","title":"Documentazione assegni nucleo familiare","kind":"unitFixed","fixed":38,"unit":"dipendente","pdfText":"Documentazione assegni nucleo familiare: € 38 a dipendente."},{"id":"dna_inail","title":"DNA all’INAIL di soci/collaboratori","kind":"unitFixed","fixed":16,"unit":"socio/collaboratore","pdfText":"DNA all’Inail di soci/collaboratori: € 16."},{"id":"cassa_integrazione","title":"Cassa integrazione","kind":"minimum","fixed":70,"pdfText":"Cassa integrazione: € 70 minimo."},{"id":"cassa_integrazione_straordinaria","title":"Cassa integrazione straordinaria","kind":"fixed","fixed":640,"pdfText":"Cassa integrazione straordinaria € 640."},{"id":"denunce_infortuni","title":"Denunce infortuni","kind":"unitFixed","fixed":65,"unit":"denuncia","pdfText":"Denunce infortuni: € 65."},{"id":"rateazione_contributive","title":"Domande di rateazione contributive","kind":"minimum","fixed":35,"pdfText":"Domande di rateazione contributive: € 35 minimo."},{"id":"personale_domestico_trimestrale","title":"Personale domestico — gestione trimestrale","kind":"unitFixed","fixed":65,"unit":"trimestre","pdfText":"Personale domestico: € 65 trimestrali."},{"id":"personale_domestico_ass_liq","title":"Personale domestico — assunzioni e liquidazioni","kind":"unitFixed","fixed":100,"unit":"adempimento","pdfText":"Personale domestico: assunzioni e liquidazioni € 100 cad."},{"id":"prospetto_paghe_contabilita","title":"Prospetto paghe e contributi per contabilità","kind":"unitFixed","fixed":20,"unit":"prospetto","pdfText":"Prospetto paghe e contributi per contabilità: € 20."},{"id":"durc_online","title":"Richiesta D.U.R.C. online","kind":"unitFixed","fixed":25,"unit":"richiesta","pdfText":"Richiesta D.U.R.C. online € 25."},{"id":"tfr_iscrizione_fondo","title":"Gestione T.F.R. — assistenza iscrizione dipendente al fondo","kind":"unitFixed","fixed":37,"unit":"dipendente","pdfText":"Assistenza per iscrizione del dipendente al fondo (una tantum) € 37,00."},{"id":"tfr_fisso_mensile_azienda","title":"Gestione T.F.R. — fisso mensile azienda con dipendenti iscritti","kind":"unitFixed","fixed":30,"unit":"mese","pdfText":"Fisso mensile per ogni azienda che ha dipendenti iscritti € 30."},{"id":"tfr_dipendente_iscritto","title":"Gestione T.F.R. — per ogni dipendente iscritto","kind":"unitFixed","fixed":20,"unit":"dipendente","pdfText":"Per ogni dipendente iscritto € 20."},{"id":"tfr_fondo_gestito","title":"Gestione T.F.R. — per ogni fondo gestito","kind":"unitFixed","fixed":20,"unit":"fondo","pdfText":"Per ogni fondo gestito: € 20."}]},{"id":"dichiarazioni_fiscali","title":"Dichiarazioni fiscali","services":[{"id":"dich_iva","title":"Dichiarazione IVA","kind":"formula","formula":"dichiarazioneIva","pdfText":"Dichiarazioni IVA per volume d’affari: fino a 75.000 € min 191 max 376; 75.001-150.000 min 240 max 469; 150.000,01-300.000 min 299 max 602; 300.000,01-500.000 min 375 max 753; 500.000,01-750.000 min 450 max 1.050; oltre 750.000 min 601 max 1.876."},{"id":"cert_credito_iva_studio","title":"Certificazione credito IVA con visto conformità — contabilità tenuta dallo studio","kind":"range","min":160,"max":430,"pdfText":"Certificazione del credito IVA con visto di conformità per clienti la cui contabilità è eseguita dallo studio: minimo € 160 - massimo € 430."},{"id":"cert_credito_iva_esterno","title":"Certificazione credito IVA con visto conformità — clientela esterna","kind":"formula","formula":"creditoIvaEsterno","pdfText":"Per clientela esterna va valutato caso per caso; 2% per importi inferiori a € 60.000 e 1% sulla parte eccedente per importi superiori, dei crediti oggetto di visto, con minimo € 265."},{"id":"redditi_tabella1","title":"Dichiarazione redditi — PF titolari partita IVA e società di persone con Redditi e IRAP","kind":"formula","formula":"redditiTabella1","pdfText":"Tabella 1: ricavi fino a 75.000 min 300 max 602; 75.001-150.000 min 539 max 811; 150.000,01-300.000 min 720 max 1.082; 300.000,01-500.000 min 897 max 1.351; 500.000,01-750.000 min 1.079 max 1.622; oltre 750.000 min 1.348 max 2.026."},{"id":"redditi_tabella2","title":"Dichiarazione redditi — Società di capitali","kind":"formula","formula":"redditiTabella2","pdfText":"Tabella 2 società di capitali: fino a 150.000 min 528 max 899; fino a 300.000 min 752 max 1.127; 300.000,01-500.000 min 1.125 max 1.688; 500.000,01-1.500.000 min 1.499 max 2.254; 1.500.000,01-3.000.000 min 1.870 max 2.815; 3.000.000,01-5.000.000 min 2.249 max 3.378; 5.000.000,01-7.500.000 min 2.621 max 3.943; oltre a discrezione."},{"id":"unico_pf_senza_piva","title":"Modello Unico persone fisiche senza partita IVA","kind":"minimum","fixed":130,"pdfText":"Onorari consigliati per redazione mod. Unico di persone fisiche senza partita IVA: minimo € 130."},{"id":"modello_730","title":"Modello 730","kind":"minimum","fixed":120,"pdfText":"Onorari consigliati per redazione mod. 730: minimo € 120."},{"id":"opzione_irap","title":"Comunicazione opzione IRAP","kind":"fixed","fixed":70,"pdfText":"Comunicazione opzione IRAP € 70."},{"id":"ace","title":"Calcolo deduzione ACE","kind":"range","min":130,"max":640,"pdfText":"Calcolo deduzione per capitale investito proprio (ACE) minimo € 130 massimo € 640."},{"id":"cert_crediti_imposta_studio","title":"Certificazione crediti d’imposta con visto conformità — contabilità tenuta dallo studio","kind":"range","min":190,"max":500,"pdfText":"Certificazione dei crediti d’imposta con visto di conformità per clienti la cui contabilità è eseguita dallo studio: minimo € 190 - massimo € 500."},{"id":"cert_crediti_imposta_esterno","title":"Certificazione crediti d’imposta con visto conformità — clientela esterna","kind":"formula","formula":"creditiImpostaEsterno","pdfText":"Per clientela esterna va valutato caso per caso; 2% per importi inferiori a € 60.000 e 1% sulla parte eccedente per importi superiori, dei crediti oggetto di visto, con minimo € 320."}]},{"id":"bilanci","title":"Bilanci","services":[{"id":"bilancio","title":"Bilancio — applicazione congiunta delle due tabelle","kind":"formula","formula":"bilanci","pdfText":"Tabella attività/perdite: fino a 130.000 min 361 max 569; 130.000,01-500.000 min 569 max 1.001; 500.000,01-1.300.000 min 1.001 max 1.427; 1.300.000,01-2.600.000 min 1.427 max 2.139; 2.600.000,01-5.750.000 min 2.139 max 2.853; oltre minimo +0,005% su eccedenza e massimo a discrezione. Tabella componenti positivi: fino a 150.000 min 361 max 713; fino a 300.000 min 425 max 784; 300.000,01-500.000 min 569 max 1.001; 500.000,01-1.500.000 min 713 max 1.142; 1.500.000,01-3.000.000 min 1.071 max 1.427; 3.000.000,01-5.000.000 min 1.427 max 2.139; 5.000.000,01-7.500.000 min 2.139 max 2.853; oltre a discrezione."},{"id":"invio_telematico_bilanci","title":"Predisposizione invio telematico bilanci società di capitali","kind":"fixed","fixed":370,"pdfText":"Predisposizione per l’invio telematico dei bilanci delle società di capitali € 370, comprensive delle spese e dei bolli."},{"id":"nomina_rinnovo_organo_amministrativo","title":"Nomina o rinnovo organo amministrativo società di capitali","kind":"fixed","fixed":440,"pdfText":"Adempimenti connessi alla nomina o al rinnovo dell’organo amministrativo delle società di capitali: € 440 escluso bolli e diritti."}]},{"id":"collegio_revisione","title":"Collegio sindacale - Revisione","services":[{"id":"collegio_sindacale","title":"Collegio sindacale","kind":"formula","formula":"collegioSindacale","pdfText":"Gli onorari del collegio sindacale sono determinati dall’applicazione congiunta: attività/perdite fino a 1.000.000 max 2.153; 1.000.000,01-3.000.000 min 2.153 max 3.229; 3.000.000,01-7.000.000 min 3.229 max 4.870; oltre 7.000.000 € 525 ogni milione o frazione. Componenti positivi: fino a 1.500.000 min 1.625 max 2.706; 1.500.000,01-4.500.000 min 2.706 max 5.413; 4.500.000,01-10.000.000 min 5.413 max 8.119; oltre 10.000.000 € 530 ogni milione o frazione. Presidente C.S. aumento fino 50%; Sindaco Unico aumento fino 80%; se il collegio svolge anche revisione i compensi si sommano e sulla revisione si propone riduzione non superiore al 25%."},{"id":"revisione_contabile","title":"Revisione contabile","kind":"formula","formula":"revisioneContabile","pdfText":"Revisione contabile per fatturato/attivo: fino 500.000 € 5.418; 500.000,01-1.000.000 € 8.663; 1.000.000,01-2.000.000 € 11.917; 2.000.000,01-4.000.000 € 15.172; 4.000.000,01-8.000.000 € 17.336; 8.000.000,01-10.000.000 € 20.585; 10.000.000,01-20.000.000 € 29.258; 20.000.000,01-30.000.000 € 36.844; 30.000.000,01-40.000.000 € 43.344; 40.000.000,01-50.000.000 € 48.761. Maggiorazione 15%-50% per collegate e controllate. Il valore di riferimento è la media dei due importi fatturato/attivo."},{"id":"attivita_affini_revisione","title":"Attività affini alla revisione: riordino contabilità, ispezioni, accertamento attendibilità bilanci, rendicontazioni","kind":"formula","formula":"revisioneContabile","pdfText":"La tabella revisione contabile può essere riferimento per riordino della contabilità, ispezioni amministrative e contabili, accertamento attendibilità bilanci, rendicontazioni."}]},{"id":"successione","title":"Dichiarazione di successione","services":[{"id":"successione_principale","title":"Predisposizione dichiarazione di successione","kind":"formula","formula":"successione","pdfText":"Predisposizione quadri EA eredi/chiamati, attivo ereditario immobili, attivo crediti/azioni/altro, EH dichiarazioni sostitutive agevolazioni riduzioni, calcolo imposte ipotecarie/catastali, calcolo imposta successione. € 700 onorario minimo fino ad un modulo per quadro; € 80 per ogni modulo in più; € 1.300 massimo per attivo ereditario rigo EE6 fino ad € 350.000; maggiorazioni per attivo superiore: 0,2% da € 350.000 a € 1.000.000 e 0,15% oltre € 1.000.000. Dichiarazione senza immobili minimo € 300; per ogni erede oltre il terzo € 50; per ogni immobile oltre il terzo € 30; per ogni cespite oltre il secondo € 25."},{"id":"successione_documentazione","title":"Predisposizione e raccolta documentazione successione","kind":"range","min":100,"max":300,"pdfText":"Predisposizione e raccolta documentazione: documenti identità/codici fiscali, atti notori, certificazioni bancarie/attività/passività, albero genealogico: € 100 minimo / € 300 massimo."},{"id":"successione_rinuncia_sessioni","title":"Rinuncia eredità e/o sessioni con altri professionisti","kind":"unitRange","min":100,"max":200,"unit":"pratica/sessione","pdfText":"Predisposizione documentazione per rinuncia eredità e/o sessioni con altri professionisti: da € 100 ad € 200 per pratica/sessione."},{"id":"successione_copie","title":"Produzione copie per eredi, istituti bancari e ricevute trasmissione","kind":"formula","formula":"copieSuccessione","pdfText":"Produzione copie per eredi, istituti bancari, stampe ricevute trasmissione: € 20 per prima copia documento prodotto dopo la prima; € 30 per ogni ulteriore copia."},{"id":"successione_trasferta","title":"Attività svolte in trasferta","kind":"manual","pdfText":"Per eventuali attività svolte in trasferta valgono le tariffe suggerite in altri paragrafi."},{"id":"successione_estero","title":"Successioni con cittadini/eredi italiani e non o attività/passività all’estero","kind":"manual","pdfText":"Per dichiarazioni di successione di cittadini/eredi italiani e non o con attività/passività anche all’estero gli onorari dovranno essere oggetto di specifica valutazione."}]},{"id":"altri_servizi inclusi","title":"Altri servizi inclusi","services":[{"id":"isa","title":"Compilazione questionari ISA","kind":"minimum","fixed":135,"pdfText":"Compilazione questionari ISA: minimo € 135."},{"id":"dichiarazione_imu","title":"Dichiarazione IMU","kind":"minimum","fixed":60,"pdfText":"Dichiarazione IMU: minimo € 60."},{"id":"cartelle_pazze_inail_inps","title":"Cartelle “pazze” INAIL/INPS","kind":"fixed","fixed":70,"pdfText":"Cartelle “pazze” INAIL/INPS: formazione fascicolo con presentazione documentazione: € 70."},{"id":"calcolo_imu_tasi","title":"Calcolo e predisposizione versamento IMU/TASI","kind":"minimum","fixed":50,"pdfText":"Calcolo e predisposizione versamento IMU/TASI a scadenza: minimo € 50."},{"id":"acconti_imposta","title":"Calcolo e predisposizione versamento acconti d’imposta","kind":"minimum","fixed":70,"pdfText":"Calcolo e predisposizione versamento acconti d’imposta: minimo € 70."},{"id":"intra","title":"Compilazione e presentazione mod. INTRA","kind":"unitFixed","fixed":70,"unit":"modello","pdfText":"Compilazione e presentazione mod. INTRA: € 70 minimo cad."},{"id":"tessera_sanitaria","title":"Compilazione e invio dati Sistema Tessera Sanitaria","kind":"range","min":190,"max":500,"pdfText":"Compilazione ed invio dati al sistema tessera sanitaria: da € 190 a € 500."},{"id":"dati_730_precompilato","title":"Dati propedeutici al 730 precompilato","kind":"range","min":190,"max":500,"pdfText":"Compilazione e invio dati propedeutici al 730 precompilato (ottici/onoranze funebri ecc.) da € 190 a € 500."},{"id":"modello_istat","title":"Modello ISTAT","kind":"minimum","fixed":70,"pdfText":"Modello ISTAT: € 70 minimo."},{"id":"altre_denunce_istanze","title":"Altre denunce, comunicazioni, istanze, esposti, memorie, risposte a questionari","kind":"minimum","fixed":70,"pdfText":"Altre denunce, comunicazioni, istanze, esposti, memorie, risposte a questionari indirizzati ad uffici finanziari: minimo € 70."},{"id":"invio_telematico_dich_fiscali","title":"Invio telematico dichiarazioni fiscali","kind":"minimum","fixed":70,"pdfText":"Invio telematico dichiarazioni fiscali: minimo € 70."},{"id":"lettere_intento","title":"Invio telematico lettere d’intento","kind":"formula","formula":"lettereIntento","pdfText":"Invio telematico lettere d’intento: € 100 fisse + € 6 ogni lettera di intento per il primo invio; € 50 fisse + € 6 per ogni lettera di intento agli invii successivi."},{"id":"smart_card_richiesta","title":"Pratiche richiesta e rilascio smart card","kind":"unitFixed","fixed":65,"unit":"smart card","pdfText":"Pratiche per richiesta e rilascio smart card € 65 cad."},{"id":"smart_card_custodia","title":"Custodia smart card","kind":"unitFixed","fixed":50,"unit":"smart card/anno","pdfText":"Custodia smart card € 50 cad. all’anno."},{"id":"variazione_codici_attivita","title":"Variazioni codici attività","kind":"fixed","fixed":50,"pdfText":"Variazioni codici attività € 50."},{"id":"adeguamenti_statuti_capitali","title":"Adeguamenti statuti società di capitali","kind":"minimum","fixed":620,"pdfText":"Adeguamenti statuti delle società di capitali, minimo € 620."},{"id":"visure_online","title":"Visure on-line","kind":"unitFixed","fixed":40,"unit":"visura","pdfText":"Visure on-line € 40."},{"id":"certificati_online","title":"Certificati on-line","kind":"unitFixed","fixed":50,"unit":"certificato","pdfText":"Certificati on-line € 50."},{"id":"contratti_locazione","title":"Registrazione telematica contratti di locazione","kind":"unitFixed","fixed":185,"unit":"contratto","pdfText":"Registrazione telematica dei contratti di locazione: € 185 per ogni contratto."},{"id":"consulenza_vacazione","title":"Consulenza — onorario a vacazione","kind":"unitFixed","fixed":115,"unit":"sessione/ora","pdfText":"Consulenza – onorario a vacazione (1 sessione = 1 ora) € 115 minimo."},{"id":"assistenza_verifiche","title":"Assistenza a verifiche fiscali e CDL","kind":"minimum","fixed":275,"pdfText":"Assistenza a verifiche Fiscali e CDL: € 275 minimo."},{"id":"pagamento_f24","title":"Pagamento F24 telematico","kind":"unitFixed","fixed":20,"unit":"scadenza","pdfText":"Pagamento F24 telematico: € 20 a scadenza."},{"id":"rimborso_ires_irpef_irap","title":"Pratica rimborso Ires-Irpef per mancata deduzione Irap","kind":"range","min":125,"max":330,"pdfText":"Pratica rimborso Ires-Irpef per mancata deduzione Irap con relativo invio telematico: minimo € 125, massimo € 330."},{"id":"rinnovo_annuale_deleghe","title":"Assistenza/pratiche rinnovo annuale smart card, cassetto fiscale, deleghe AdE","kind":"unitFixed","fixed":65,"unit":"rinnovo","pdfText":"Assistenza/pratiche rinnovo annuale (es.: smart card; cassetto fiscale, deleghe, ecc. su sito AdE) € 65."},{"id":"verifica_crediti_fiscali","title":"Verifica periodica piattaforma crediti fiscali e gestione/impiego crediti","kind":"fixed","fixed":530,"pdfText":"Assistenza per la verifica periodica della piattaforma dei crediti fiscali (es.: da sconto in fattura), la gestione e l’impiego dei crediti fiscali € 530 annue."},{"id":"gestione_pec","title":"Assistenza/gestione posta elettronica anche certificata","kind":"unitFixed","fixed":16,"unit":"mese","pdfText":"Assistenza/gestione posta elettronica anche certificata € 16 mensili."},{"id":"titolare_effettivo","title":"Pratica Registro Imprese comunicazione titolare effettivo","kind":"range","min":105,"max":155,"pdfText":"Pratica Registro Imprese comunicazione del titolare effettivo: da € 105 a € 155."},{"id":"registratori_pos","title":"Collegamento Registratori Telematici ai POS","kind":"formula","formula":"registratoriPos","pdfText":"Collegamento Registratori Telematici ai POS: fino a due apparati da collegare minimo € 60 per ogni apparato. Oltre i due apparati e per situazioni più complesse l’onorario è da calcolarsi a vacazione. Per nuovi collegamenti o dismissioni onorario minimo € 50 per apparato."}]},{"id":"cpb","title":"Concordato Preventivo Biennale","services":[{"id":"cpb_forfettari","title":"CPB — Contribuenti forfettari","kind":"range","min":167,"max":268,"pdfText":"Concordato Preventivo Biennale: contribuenti forfettari min. € 167 max € 268."},{"id":"cpb_imprese_soc_persone","title":"CPB — Imprese individuali e società di persone","kind":"range","min":218,"max":622,"pdfText":"Concordato Preventivo Biennale: imprese individuali e società di persone min. € 218 max € 622."},{"id":"cpb_soc_capitali","title":"CPB — Società di capitali","kind":"range","min":319,"max":840,"pdfText":"Concordato Preventivo Biennale: società di capitali min. € 319 max € 840."}]},{"id":"covid","title":"Assistenza COVID-19 e Temporary Framework","services":[{"id":"covid_bonus","title":"Assistenza richiesta “bonus”","kind":"range","min":38,"max":70,"pdfText":"Assistenza richiesta “bonus” da € 38 a € 70."},{"id":"covid_cassa_integrazione","title":"Cassa integrazione COVID-19","kind":"range","min":300,"max":620,"pdfText":"Cassa integrazione da € 300 a € 620."},{"id":"covid_finanziamenti_dl23","title":"Prima assistenza richiesta finanziamenti D.L. 23/2020","kind":"range","min":235,"max":690,"pdfText":"Prima assistenza nella richiesta di finanziamenti D.L. 23 del 8/4/2020: da € 235 a € 690. Per pratiche più complesse trattativa concordata singolarmente."},{"id":"covid_contributo_fondo_perduto","title":"Calcolo contributo a fondo perduto e pratica telematica","kind":"formula","formula":"contributoFondoPerduto","pdfText":"Calcolo del contributo a fondo perduto e relativa pratica telematica: minimo € 185 per ditte individuali e € 250 per società, oltre al 5% del contributo eccedente € 2.000, con compenso massimo € 870. Per pratiche particolarmente complesse trattativa concordata singolarmente."},{"id":"covid_istanza_sostegni","title":"Redazione e invio istanza contributi a fondo perduto Decreto Sostegni/Sostegni-bis","kind":"range","min":97,"max":300,"pdfText":"Redazione ed invio del modulo ISTANZA PER IL RICONOSCIMENTO DEI CONTRIBUTI A FONDO PERDUTO – DECRETO SOSTEGNI E SOSTEGNI-BIS: da € 97 a € 300."},{"id":"tf_quadro_es","title":"Temporary Framework — solo quadro ES","kind":"fixed","fixed":97,"pdfText":"Dichiarazione sostitutiva atto notorio requisiti sezioni 3.1 e 3.12 Temporary Framework: compilazione e invio telematico del solo quadro ES € 97."},{"id":"tf_modello_ordinario_31","title":"Temporary Framework — modello ordinario sezione 3.1","kind":"range","min":235,"max":470,"pdfText":"Compilazione ed invio modello ordinario, limitato alla sezione 3.1: da € 235 a € 470."},{"id":"tf_modello_ordinario_31_312","title":"Temporary Framework — modello ordinario sezioni 3.1 e 3.12","kind":"range","min":470,"max":940,"pdfText":"Compilazione ed invio modello ordinario sezioni 3.1 e 3.12: da € 470 a € 940."}]},{"id":"bonus_edilizia","title":"Visto di conformità Bonus Edilizia","services":[{"id":"visto_bonus_edilizia","title":"Visto conformità Bonus Edilizia","kind":"formula","formula":"bonusEdilizia","pdfText":"Pratiche con valore < € 200.000: 3%-4% con minimo € 600. Pratiche con valore > € 200.000: 1%-3%. In caso di lavori condominiali e singoli condomini per lavori trainati, le pratiche dovranno essere calcolate singolarmente."},{"id":"invio_comunicazione_bonus","title":"Compilazione modello e invio telematico comunicazione opzione cessione/sconto","kind":"minimum","fixed":180,"pdfText":"Invio comunicazioni opzione cessione credito/sconto in fattura interventi recupero edilizio, efficienza energetica, bonus facciate ecc.: compilazione modello e invio telematico € 180 minimo."},{"id":"annullamento_comunicazione_bonus","title":"Annullamento comunicazione opzione cessione/sconto","kind":"fixed","fixed":60,"pdfText":"Annullamento comunicazione € 60."},{"id":"gestione_crediti_bonus_ade","title":"Gestione crediti Bonus Edilizia su piattaforma AdE","kind":"unitFixed","fixed":100,"unit":"annualità","pdfText":"Gestione crediti da bonus Edilizia su piattaforma AdE: controllo e gestione crediti ceduti/acquisiti, utilizzo ed eventuale successiva cessione, minimo € 100 per annualità."},{"id":"gestione_piattaforme_banche","title":"Gestione piattaforme banche Deloitte, KPMG, ecc.","kind":"range","min":300,"max":1500,"pdfText":"Gestione piattaforme Banche: caricamento e gestione documentazione propedeutica alla cessione crediti sulle piattaforme banche, minimo € 300 massimo € 1.500 per singola pratica."}]},{"id":"accertamento_cartelle","title":"Assistenza accertamento redditometro e cartelle/ruoli","services":[{"id":"redditometro","title":"Assistenza accertamento redditometro","kind":"formula","formula":"redditometro","pdfText":"Assistenza accertamento redditometro: valore pratica fino a 10.000 min 80 max 133; 10.000,01-50.000 min 145 max 289; 50.000,01-500.000 min 316 max 465; oltre 500.000,01 min 477 max 659. Si intende l’esame e l’eventuale definizione con l’Agenzia delle Entrate."},{"id":"rottamazione_cartelle","title":"Rottamazione cartelle — presentazione richiesta definizione agevolata ruoli","kind":"range","min":250,"max":1700,"pdfText":"Presentazione richiesta definizione agevolata dei ruoli da € 250 a € 1.700."},{"id":"analisi_situazione_debitoria","title":"Analisi situazione debitoria con il cliente","kind":"manual","pdfText":"Analisi della situazione debitoria con il cliente: tariffazione oraria, perché le situazioni possibili sono infinite e la tariffa oraria è quella più adatta."},{"id":"richiesta_situazione_debitoria_equipro","title":"Richiesta situazione debitoria tramite Piattaforma digitale EquiPro","kind":"range","min":130,"max":300,"pdfText":"Richiesta della situazione debitoria tramite Piattaforma digitale EquiPro: da € 130 a € 300."},{"id":"rateazione_cartella","title":"Gestione ordinaria cartelle — richiesta rateazione cartella","kind":"range","min":130,"max":300,"pdfText":"Richiesta rateazione di cartella: da € 130 a € 300."},{"id":"pagamento_cartelle_avvisi","title":"Gestione ordinaria cartelle — pagamento cartelle e avvisi","kind":"range","min":60,"max":100,"pdfText":"Pagamento di cartelle e avvisi da € 60 a € 100."},{"id":"pagamento_rate_cartelle","title":"Gestione ordinaria cartelle — pagamento rate alla scadenza","kind":"unitFixed","fixed":25,"unit":"rata","pdfText":"Pagamento delle rate alla scadenza € 25,00 a rata."},{"id":"rateazione_avvisi_bonari","title":"Avvisi bonari — richiesta rateazione","kind":"range","min":60,"max":130,"pdfText":"Richiesta rateazione di avvisi bonari: da € 60 a € 130."},{"id":"pagamento_rate_avvisi_bonari","title":"Avvisi bonari — pagamento rate alla scadenza","kind":"unitFixed","fixed":25,"unit":"rata","pdfText":"Pagamento delle rate alla scadenza € 25,00 a rata."},{"id":"ravvedimenti_operosi","title":"Ravvedimenti operosi","kind":"unitFixed","fixed":38,"unit":"ravvedimento","pdfText":"Ravvedimenti operosi: € 38."}]}]}
   </script>
   <script>
 'use strict';
@@ -2401,7 +2616,7 @@ const VAT_REQUIRED_FORMS = new Set([
 const VAT_NOT_APPLICABLE_FORMS = new Set(['Persona fisica senza partita IVA', 'Condominio', 'Datore di lavoro domestico', 'Successione']);
 const MANUAL_STEPS = ['Cliente', 'Prestazioni', 'Prezzi', 'Condizioni', 'Anteprima'];
 const DEFAULT_CONDITIONS = {
-  validity: 'Il presente preventivo dovrà essere accettato entro 10 giorni dalla data di emissione.', charges: 'Gli importi indicati sono da intendersi oltre oneri previsti per legge.', istat: 'Il compenso potrà essere adeguato annualmente in base alla variazione dell’indice ISTAT dei prezzi al consumo, esclusivamente se la relativa clausola viene espressamente accettata e sottoscritta. L’eventuale aggiornamento sarà comunicato con indicazione trasparente del calcolo applicato.', exclusions: 'Restano escluse le attività non espressamente indicate, le spese vive, i bolli, i diritti e gli adempimenti straordinari, salvo diverso accordo scritto.', lateDocs: 'La stima presuppone la consegna completa e tempestiva della documentazione. Ritardi, incompletezze o disordine documentale potranno richiedere una revisione del compenso.', privacy: 'I dati inseriti sono trattati localmente nel browser. Il salvataggio avviene soltanto con consenso espresso dell’utente.'
+  validity: 'Il presente preventivo dovrà essere accettato entro 10 giorni dalla data di emissione.', charges: 'Gli importi indicati sono da intendersi oltre oneri previsti per legge.', istat: 'Il compenso potrà essere adeguato annualmente in base alla variazione dell’indice ISTAT dei prezzi al consumo, esclusivamente se la relativa clausola viene espressamente accettata e sottoscritta. L’eventuale aggiornamento sarà comunicato con indicazione trasparente del calcolo applicato.', exclusions: 'Restano escluse le attività non espressamente indicate, le spese vive, i bolli, i diritti e gli servizi inclusi straordinari, salvo diverso accordo scritto.', lateDocs: 'La stima presuppone la consegna completa e tempestiva della documentazione. Ritardi, incompletezze o disordine documentale potranno richiedere una revisione del compenso.', privacy: 'I dati inseriti sono trattati localmente nel browser. Il salvataggio avviene soltanto con consenso espresso dell’utente.'
 };
 const CONDITION_FIELDS = Object.freeze([
   ['validity', 'Validità dell’offerta'],
@@ -3389,7 +3604,7 @@ function applyProfile(profile) {
     addChatCustom('Gestione contabile e fiscale annuale dell’ente', 'Prestazione non espressamente presente nel listino generale: definire il perimetro e valorizzare manualmente.', 'annual');
   }
   else if (form === 'Condominio')
-    addChatCustom('Gestione contabile e fiscale del condominio', 'Attività non presente nel listino: definire numero unità, adempimenti e gestione fornitori.', 'annual');
+    addChatCustom('Gestione contabile e fiscale del condominio', 'Attività non presente nel listino: definire numero unità, servizi inclusi e gestione fornitori.', 'annual');
   else if (form === 'Persona fisica senza partita IVA')
     setSelected(profile.personalNeed === 'Modello 730' ? 'modello_730' : 'unico_pf_senza_piva', { qty: 1 }, level);
   else if (form === 'Successione') {
@@ -3940,8 +4155,8 @@ const COMMON_ALIASES = [
   ['pagamento_f24', 'pagamento telematico di un F24', ['f24', 'pagare f24', 'inviare f24']],
   ['calcolo_imu_tasi', 'calcolo IMU/TASI', ['calcolo imu', 'pagare imu', 'imu tasi']],
   ['dichiarazione_imu', 'dichiarazione IMU', ['dichiarazione imu']],
-  ['gestione_pec', 'gestione della PEC', ['gestione pec', 'controllare pec', 'posta certificata']],
-  ['smart_card_richiesta', 'richiesta della firma digitale', ['firma digitale', 'smart card', 'richiedere smart card']],
+  ['gestione_pec', 'attivazione o gestione della PEC', ['pec', 'fare pec', 'aprire pec', 'attivare pec', 'richiedere pec', 'gestione pec', 'controllare pec', 'posta certificata', 'mail certificata']],
+  ['smart_card_richiesta', 'richiesta della firma digitale', ['firma digitale', 'fare firma digitale', 'attivare firma digitale', 'richiedere firma digitale', 'smart card', 'richiedere smart card']],
   ['visure_online', 'visura online', ['visura camerale', 'visura online', 'fare una visura']],
   ['certificati_online', 'certificato online', ['certificato camerale', 'certificato online']],
   ['titolare_effettivo', 'comunicazione del titolare effettivo', ['titolare effettivo']],
@@ -4003,7 +4218,7 @@ const PACKAGE_MATRIX = {
   }
 };
 /*
-* Matrice esplicita degli adempimenti del personale.
+* Matrice esplicita degli servizi inclusi del personale.
 * “recurring” confluisce nella gestione annuale; “oneoff” resta separato.
 * Il prospetto paghe per la contabilità viene incluso solo quando lo Studio
 * gestisce una contabilità ordinaria o semplificata, non nel forfettario
@@ -4049,7 +4264,7 @@ function freshAssistant() {
     messages: [], area: 'avvio', context: {
       profile: null, activity: null, revenue: null, documents: 'few', employees: 0, overTen: false, _known: {}
     },
-    pending: null, isTyping: false, queueToken: 0, lastQuote: null, quoteHistory: [], activeQuotes: {},
+    pending: null, isTyping: false, showThinking: false, queueToken: 0, lastQuote: null, quoteHistory: [], activeQuotes: {},
     readyForEstimate: false, feedback: {}, scrollTop: 0, preserveScroll: false, newMessages: false, focusPrompt: false
   };
 }
@@ -4220,6 +4435,12 @@ function parseItalianNumber(value, fallback = NaN) {
       amount += (/miliard/.test(tail) ? 5e8 : 5e5);
     return Number.isFinite(amount) ? amount : fallback;
   }
+  const compactScale = n.match(/^(\d+(?:[.,]\d+)?)\s*(k|m|mln|mil|bn|mld)$/i);
+  if (compactScale) {
+    const base = parseNumericToken(compactScale[1]);
+    const scale = /^(k)$/i.test(compactScale[2]) ? 1e3 : /^(m|mln|mil)$/i.test(compactScale[2]) ? 1e6 : 1e9;
+    return Number.isFinite(base) ? base * scale : fallback;
+  }
   const wordScale = n.match(/^(.+?)\s+k$/);
   if (wordScale) {
     const base = parseWordNumber(wordScale[1]);
@@ -4389,19 +4610,59 @@ function asksAnnualManagement(text) {
   return /\b(quanto costa|quanto pago|quanto ti prendi|commercialista|gestione|mantenere|mantenimento|all anno|annuale|ogni anno|seguire)\b/.test(n);
 }
 function asksOpening(text) {
-  return /\b(aprire|apertura|costituire|costituzione|avviare|avvio)\b/.test(norm(text));
+  const n = norm(text);
+  return /\b(aprire|apertura|costituire|costituzione|avviare|avvio|iniziare|partire|mettermi in proprio|mettersi in proprio|lavorare per conto mio|lavorare in proprio|fare la partita iva|fare le carte|regolarizzarmi|iniziare a fatturare|aprire bottega|mettere su)\b/.test(n);
+}
+function detectsVatOpening(text) {
+  const n = norm(text);
+  return /\b(partita\s*iva|p\s*\.?\s*iva|piva|fatturare|mettermi in proprio|mettersi in proprio|lavorare per conto mio|lavorare in proprio|fare le carte per lavorare|regolarizzarmi)\b/.test(n) && asksOpening(n);
+}
+function detectsClosure(text) {
+  const n = norm(text);
+  return /\b(chiudere|chiusura|cessare|cessazione|smettere|togliere|disattivare|non lavoro piu|non mi serve piu|fermare l attivita|mettere in pausa|congelare)\b/.test(n) && /\b(partita\s*iva|piva|ditta|attivita|societa|azienda|lavoro)\b/.test(n);
+}
+function detectsInheritanceEvent(text) {
+  const n = norm(text);
+  return /\b(e morto|e morta|è morto|è morta|mio padre e mancato|mia madre e mancata|mio marito e morto|mia moglie e morta|defunto|decesso|abbiamo ereditato|beni da dividere|casa da dividere|la banca chiede)\b/.test(n);
+}
+function detectsHiring(text) {
+  const n = norm(text);
+  return /\b(assum|assunzion|mettere in regola|prendere (?:una persona|uno|un ragazzo|un operaio)|fare il contratto (?:a|ad) una persona|regolarizzare (?:una persona|un lavoratore)|mi serve un operaio|mi serve personale|persona in prova|apprendista)\b/.test(n);
+}
+function detectsRentalContract(text) {
+  const n = norm(text);
+  return /\b(contratto|affitto|locazione|inquilino|cedolare secca)\b/.test(n);
+}
+function clientIntentList(text) {
+  const n = norm(text), out = [];
+  const add = (id, label, serviceId = null) => {
+    if (!out.some(x => x.id === id || (serviceId && x.serviceId === serviceId))) out.push({ id, label, serviceId });
+  };
+  if (detectsVatOpening(n)) add('vat_opening', 'apertura della partita IVA');
+  if (asksOpening(n) && /\b(srl|srls|societa|snc|sas|spa|cooperativa)\b/.test(n)) add('company_formation', 'apertura e gestione iniziale della società');
+  if (detectsClosure(n)) add('closure', 'chiusura o cessazione dell’attività');
+  if (detectsHiring(n)) add('hiring', 'assunzione o regolarizzazione di personale');
+  if (/\b(buste paga|cedolini|paghe|stipendi|gestire (?:i|dei) dipendenti)\b/.test(n)) add('payroll', 'gestione delle buste paga');
+  if (/\b(contabilita|tenere i conti|gestire le fatture|portarvi le carte|seguirmi ogni anno|gestione annuale)\b/.test(n)) add('accounting', 'gestione contabile e fiscale');
+  if (/\b(successione|eredita)\b/.test(n) || detectsInheritanceEvent(n)) add('inheritance', 'pratica di successione');
+  if (detectsRentalContract(n)) add('rental_contract', 'contratto di locazione');
+  if (/\b(cartella|avviso|lettera (?:delle tasse|dall agenzia)|raccomandata dall agenzia|mi chiedono dei soldi)\b/.test(n)) add('tax_notice', 'controllo di una comunicazione fiscale');
+  // Ogni prestazione esplicita trovata nel testo diventa un’intenzione autonoma.
+  // In questo modo "aprire una SRL, fare PEC e firma digitale" produce tre richieste distinte.
+  aliasMatches(text).forEach(match => add(`service:${match.service.id}`, match.label, match.service.id));
+  return out;
 }
 function asksOnlyConstitution(text) {
   const n = norm(text);
   return /\b(costituire|costituzione|atto costitutivo)\b/.test(n) && !/gestione|mantenere|annuale|all anno/.test(n);
 }
 function isCorrection(text) {
-  return /\b(in realta|ho sbagliato|correggi|rettifico|anzi|non sono|sono invece|togli|elimina|senza piu|modifica)\b/.test(norm(text));
+  return /\b(in realta|ho sbagliato|correggi|rettifico|anzi|non sono|sono invece|togli|elimina|senza piu|modifica|no aspetta|mi sono spiegato male|non e quello|ho detto male|lascia perdere|facciamo senza|cambio idea|non serve piu|intendevo altro)\b/.test(norm(text));
 }
 function saysUnknown(text) {
   return /\b(non lo so|non so|da vedere|da definire|ancora non so|non ne ho idea)\b/.test(norm(text));
 }
-/* ---------- Calcoli minimi e matrice degli adempimenti ---------- */
+/* ---------- Calcoli minimi e matrice degli servizi inclusi ---------- */
 function makeItem(id, title, amount, note = '', opts = {}) {
   const period = opts.period || 'oneoff';
   const annualAmount = Number.isFinite(opts.annualAmount) ? Number(opts.annualAmount) : (Number.isFinite(amount) ? Number(amount) : null);
@@ -4438,7 +4699,7 @@ function servicePeriod(id) {
 function minimumItem(id, answers = {}, overrides = {}) {
   const c = calcMin(id, answers);
   if (!c || !Number.isFinite(c.value)) {
-    return makeItem(id, overrides.title || serviceById[id]?.title || id, null, overrides.note || 'Il tariffario richiede una valutazione specifica.', {
+    return makeItem(id, overrides.title || serviceById[id]?.title || id, null, overrides.note || 'Il costo dipende dai dati della pratica e deve essere confermato dallo Studio.', {
       priceText: 'Da valutare', period: overrides.period || 'oneoff', recurrence: overrides.recurrence || 'oneoff'
     });
   }
@@ -4586,7 +4847,7 @@ function contextLabels(profile, ctx) {
 }
 function profileFields(profile, ctx) {
   const fields = [{
-      key: 'profile', label: 'Forma dell’attività', value: PROFILE_FIELD_LABELS[profile] || profile
+      key: 'profile', label: 'Come è organizzata l’attività', value: PROFILE_FIELD_LABELS[profile] || profile
     }];
   if (ctx.activity)
     fields.push({
@@ -4662,7 +4923,7 @@ function buildProfileQuote(profile, context) {
     ? `Per ${label}${ctx.activity ? ` nel settore ${ctx.activity}` : ''}, il totale indicativo del primo anno parte da ${euro(firstYear)}.`
     : `Per ${label}${ctx.activity ? ` nel settore ${ctx.activity}` : ''}, la gestione parte indicativamente da ${euro(financial.recurring)} all’anno.`;
   const core = profile === 'srl' || profile === 'capitali' ? 'gestione della contabilità, dichiarazione dei redditi, preparazione del bilancio e deposito annuale' : profile === 'forfettario' ? 'gestione annuale e dichiarazione dei redditi' : 'gestione della contabilità e dichiarazione dei redditi';
-  const payroll = ctx.employees ? ' Sono inclusi anche la gestione delle buste paga e gli adempimenti annuali collegati.' : '';
+  const payroll = ctx.employees ? ' Sono inclusi anche la gestione delle buste paga e i servizi annuali collegati.' : '';
   const oneoff = financial.oneoff ? ` Le attività una tantum del primo anno ammontano a ${euro(financial.oneoff)}.` : '';
   return quoteResult({
     profile, context: ctx, items, lead,
@@ -4709,6 +4970,147 @@ function buildSuccessionQuote(text) {
     kind: 'oneoff', items, total, lead: `Per una successione semplice, il costo parte indicativamente da ${euro(total)} per la pratica.`, detail: 'La stima comprende la dichiarazione e la preparazione della documentazione essenziale.', assumption: assumption.join(', '), included: items.map(i => i.title).join(', '), group: 'scenario:successione', periodLabel: 'per la pratica', totalLabel: 'Importo minimo'
   });
 }
+
+function buildRentalQuote(text) {
+  const n = norm(text);
+  const qty = Math.max(1, Math.round(numberBefore(text, /\b(contratti|contratto|immobili|immobile|case|casa|locali|locale)\b/) || 1));
+  const registration = minimumItem('contratti_locazione', { qty }, {
+    title: qty > 1 ? 'Registrazione dei contratti di locazione' : 'Registrazione del contratto di locazione',
+    period: 'oneoff', recurrence: 'oneoff'
+  });
+  const drafting = /\b(preparare|redigere|scrivere|fare il contratto|nuovo contratto|bozza)\b/.test(n);
+  const renewal = /\b(proroga|rinnovo|rinnovare|modificare|subentro|cessione|risoluzione|chiudere il contratto|disdetta)\b/.test(n);
+  const operation = renewal ? 'operazione successiva sul contratto' : drafting ? 'preparazione e registrazione del contratto' : 'registrazione del contratto';
+  const detail = drafting
+    ? `Il tariffario consente di quantificare subito la registrazione telematica. La redazione personalizzata del testo sarà verificata separatamente dallo Studio.`
+    : renewal
+      ? `La cifra mostrata usa come riferimento la registrazione telematica. Lo Studio confermerà se l’operazione richiesta richiede un importo diverso.`
+      : `La stima comprende la registrazione telematica del contratto.`;
+  return quoteResult({
+    kind: 'oneoff', items: [registration],
+    lead: `Per ${operation}, la parte quantificabile parte indicativamente da ${euro(registration.amount)}${qty > 1 ? ` per ${qty} contratti` : ''}.`,
+    detail,
+    assumption: `${qty} contratt${qty === 1 ? 'o' : 'i'} di locazione`,
+    included: registration.title, group: 'scenario:rental', periodLabel: 'per la pratica', totalLabel: 'Importo minimo'
+  });
+}
+function buildClosureQuote(text, context = {}) {
+  const n = norm(text), profile = context.profile || detectProfile(text).profile || null;
+  const company = /\b(srl|srls|spa|snc|sas|societa|azienda)\b/.test(n);
+  const employees = Math.max(0, Math.round(context.employees || numberBefore(text, /\b(dipendenti|dipendente|lavoratori|lavoratore)\b/) || 0));
+  const consultation = minimumItem('consulenza_vacazione', { qty: 1 }, {
+    title: 'Valutazione iniziale della chiusura', period: 'oneoff', recurrence: 'oneoff'
+  });
+  const items = [consultation];
+  if (employees) {
+    const closing = minimumItem('licenziamento', { qty: employees }, {
+      title: employees === 1 ? 'Chiusura del rapporto di lavoro' : 'Chiusura dei rapporti di lavoro', period: 'oneoff', recurrence: 'oneoff'
+    });
+    if (closing) items.push(closing);
+  }
+  const total = sumItems(items);
+  return quoteResult({
+    kind: 'oneoff', profile, context, items,
+    lead: `Per avviare correttamente la chiusura, la prima attività quantificabile parte indicativamente da ${euro(total)}.`,
+    detail: company
+      ? 'La chiusura di una società può richiedere altre pratiche e costi esterni: saranno aggiunti soltanto dopo aver verificato la situazione. I costi notarili restano esclusi.'
+      : 'La cifra copre la prima valutazione e gli eventuali rapporti di lavoro riconosciuti nel messaggio. Le pratiche di cessazione saranno confermate dopo aver verificato le posizioni aperte.',
+    assumption: `${company ? 'società o azienda' : 'attività individuale o partita IVA'}${employees ? `, ${employees} dipendent${employees === 1 ? 'e' : 'i'}` : ', nessun dipendente indicato'}`,
+    included: items.map(i => i.title).join(', '), group: 'scenario:closure', periodLabel: 'per la prima fase', totalLabel: 'Prima stima'
+  });
+}
+function buildVatOpeningQuote(text, context = {}) {
+  const detected = detectProfile(text);
+  const profile = context.profile || detected.profile || (/\b(professionista|consulente|freelance|avvocato|medico|architetto|ingegnere)\b/.test(norm(text)) ? 'professionista' : 'forfettario');
+  const ctx = mergeContext({ profile, documents: 'few', employees: 0, overTen: false, _known: {} }, context);
+  ctx.profile = profile;
+  const items = profileItems(profile, ctx);
+  const result = quoteResult({
+    profile, context: ctx, items,
+    lead: `Per iniziare e avere anche la gestione fiscale del primo anno, la prima stima parte indicativamente da ${euro(itemTotals(items).firstYear)}.`,
+    detail: 'La cifra riguarda i servizi dello Studio previsti dal tariffario per la gestione. L’apertura amministrativa sarà confermata dopo aver chiarito attività e forma; eventuali costi notarili o altri costi esterni non sono inclusi.',
+    assumption: `${PROFILE_LABELS[profile] || 'attività individuale'}, prima fascia, poche fatture, nessun dipendente indicato`,
+    included: items.map(i => i.title).join(', '), group: 'scenario:vat-opening'
+  });
+  return result;
+}
+function buildFallbackConsultationQuote(text) {
+  const item = minimumItem('consulenza_vacazione', { qty: 1 }, {
+    title: 'Prima consulenza per inquadrare la richiesta', period: 'oneoff', recurrence: 'oneoff'
+  });
+  return quoteResult({
+    kind: 'oneoff', items: [item],
+    lead: `Non ho ancora abbastanza elementi per associare con sicurezza la richiesta a una pratica precisa. Una prima consulenza parte indicativamente da ${euro(item.amount)}.`,
+    detail: 'Durante il chiarimento lo Studio individuerà il servizio corretto e sostituirà questa voce con il preventivo specifico, evitando doppioni.',
+    assumption: 'una sessione iniziale di un’ora', included: item.title,
+    group: 'scenario:fallback-consultation', periodLabel: 'per una sessione', totalLabel: 'Importo minimo'
+  });
+}
+function mergeQuoteResults(results, text, context = {}) {
+  const valid = results.filter(Boolean);
+  if (!valid.length) return null;
+  const seen = new Set(), items = [];
+  valid.forEach(r => (r.items || []).forEach(item => {
+    const key = `${item.id || item.title}:${item.amount}:${item.annualAmount || ''}`;
+    if (!seen.has(key)) { seen.add(key); items.push(item); }
+  }));
+  const financial = itemTotals(items);
+  return quoteResult({
+    profile: context.profile || valid.find(r => r.profile)?.profile || null,
+    context, items,
+    lead: `Ho riunito le richieste in un’unica prima stima: il totale indicativo del primo anno parte da ${euro(financial.firstYear)}.`,
+    detail: `Ho considerato ${valid.map(r => r.group || 'una richiesta').length} gruppi di attività senza duplicare le stesse voci. Eventuali costi esterni, imposte, contributi e costi notarili non sono inclusi.`,
+    assumption: valid.map(r => r.assumption).filter(Boolean).join('; '),
+    included: items.map(i => i.title).join(', '), group: 'scenario:combined'
+  });
+}
+function collapseRequestResult(result, id, label) {
+  if (!result) return null;
+  const financial = itemTotals(result.items || []);
+  const amount = Number.isFinite(financial.firstYear) ? financial.firstYear : result.firstYearTotal ?? result.total;
+  if (!Number.isFinite(amount)) return result;
+  const item = makeItem(id, label, amount,
+    (result.items || []).map(i => i.title).filter(Boolean).join(', '),
+    { annualAmount: amount, period: 'annual', recurrence: 'recurring', priceText: `A partire da ${euro(amount)} nel primo anno` });
+  return quoteResult({
+    profile: result.profile, context: result.context, items: [item],
+    lead: `${label}: prima stima ${euro(amount)} nel primo anno.`,
+    detail: result.detail, assumption: result.assumption, included: result.included,
+    group: `request:${id}`
+  });
+}
+function buildCombinedRequestQuote(text, context, intents) {
+  const n = norm(text), results = [], coveredServices = new Set();
+  const hasCompanyOpening = intents.some(i => i.id === 'company_formation' || i.id === 'vat_opening');
+  if (hasCompanyOpening || (asksOpening(text) && context.profile)) {
+    const opening = buildVatOpeningQuote(text, context);
+    results.push(collapseRequestResult(opening, 'company_opening', context.profile === 'srl' || /\bsrls?\b/.test(n)
+      ? 'Apertura e gestione fiscale iniziale della SRL'
+      : 'Apertura e gestione fiscale iniziale dell’attività'));
+    (opening?.items || []).forEach(i => coveredServices.add(i.id));
+  } else if (context.profile && asksAnnualManagement(text)) {
+    results.push(buildProfileQuote(context.profile, context));
+  }
+  if (detectsClosure(text)) results.push(buildClosureQuote(text, context));
+  if (/\b(successione|eredita|eredità)\b/.test(n) || detectsInheritanceEvent(text)) results.push(buildSuccessionQuote(text));
+  if (detectsRentalContract(text)) results.push(buildRentalQuote(text));
+  if (/\b(colf|badante|personale domestico)\b/.test(n)) results.push(buildDomesticQuote(text));
+  else if (/\b(buste paga|cedolini|paghe|stipendi)\b/.test(n) || detectsHiring(text)) results.push(buildPayrollQuote(text, context));
+
+  // Calcola separatamente ogni servizio esplicito, così ogni richiesta ha il proprio importo.
+  const explicitMatches = aliasMatches(text).filter(m => !coveredServices.has(m.service.id));
+  explicitMatches.forEach(match => {
+    const serviceQuote = buildServiceQuote([match], text);
+    if (serviceQuote) results.push(serviceQuote);
+  });
+  const merged = mergeQuoteResults(results, text, context);
+  if (merged) {
+    merged.detectedIntents = intents.map(i => ({ id: i.id, label: i.label }));
+    merged.detail = `Ho riconosciuto ${intents.length} richiest${intents.length === 1 ? 'a' : 'e'} e ho assegnato una voce economica distinta a ciascuna, senza dimenticare le prestazioni esplicite. ${merged.detail || ''}`;
+  }
+  return merged;
+}
+
 function buildDomesticQuote(text) {
   const n = norm(text), management = /\b(gestione|contributi|trimestrale|seguire|badante|colf)\b/.test(n) && !/solo assunzione|solo chiusura/.test(n), hiring = /\b(assumere|assunzione)\b/.test(n), closing = /\b(licenziare|liquidazione|chiudere rapporto|cessazione)\b/.test(n);
   const items = [];
@@ -4740,7 +5142,7 @@ function buildAssociationQuote(text) {
   }
   const total = sumItems(items), label = sports ? 'un’associazione sportiva' : ets ? 'un ente del Terzo Settore' : 'un’associazione';
   return quoteResult({
-    kind: 'oneoff', items, lead: `Per gli adempimenti iniziali di ${label}, il costo parte indicativamente da ${euro(total)} complessivi.`, detail: 'La stima comprende le attività iniziali individuabili con sicurezza nel tariffario.', assumption: `${label}, situazione semplice`, included: items.map(i => i.title).join(', '), group: `scenario:${sports ? 'asd' : ets ? 'ets' : 'association'}`, periodLabel: 'complessivi', totalLabel: 'Importo minimo'
+    kind: 'oneoff', items, lead: `Per i servizi iniziali di ${label}, il costo parte indicativamente da ${euro(total)} complessivi.`, detail: 'La stima comprende le attività iniziali individuabili con sicurezza nel tariffario.', assumption: `${label}, situazione semplice`, included: items.map(i => i.title).join(', '), group: `scenario:${sports ? 'asd' : ets ? 'ets' : 'association'}`, periodLabel: 'complessivi', totalLabel: 'Importo minimo'
   });
 }
 function formulaDefaults(service, text = '') {
@@ -4792,7 +5194,7 @@ function quantityForService(service, text) {
 }
 function genericMinimumItem(service, text, label) {
   if (service.kind === 'manual')
-    return makeItem(service.id, label || service.title, null, 'Il tariffario richiede una valutazione specifica.', { priceText: 'Da valutare' });
+    return makeItem(service.id, label || service.title, null, 'Il costo dipende dai dati della pratica e deve essere confermato dallo Studio.', { priceText: 'Da valutare' });
   const qty = quantityForService(service, text), answers = {
     qty, level: 0, ...(service.kind === 'formula' ? formulaDefaults(service, text) : {})
   };
@@ -4844,10 +5246,10 @@ function buildPayrollQuote(text, base = {}) {
   const items = payrollLinkedItems(ctx, { accounting: null }), financial = itemTotals(items);
   const lead = financial.oneoff
     ? `Per gestire le buste paga e avviare i rapporti indicati, il totale del primo anno parte da ${euro(financial.firstYear)}.`
-    : `Per gestire le buste paga e gli adempimenti collegati di ${employees} dipendent${employees === 1 ? 'e' : 'i'}, il costo parte indicativamente da ${euro(financial.recurring)} all’anno.`;
+    : `Per gestire le buste paga e gli servizi inclusi collegati di ${employees} dipendent${employees === 1 ? 'e' : 'i'}, il costo parte indicativamente da ${euro(financial.recurring)} all’anno.`;
   return quoteResult({
     kind: 'annual', context: ctx, items, lead,
-    detail: 'La stima comprende la gestione mensile delle paghe e gli adempimenti annuali collegati previsti dal tariffario. Le pratiche di assunzione, quando richieste, sono separate come attività una tantum.',
+    detail: 'La stima comprende la gestione mensile delle paghe e i servizi annuali collegati previsti dal tariffario. Le pratiche di assunzione, quando richieste, sono separate come attività una tantum.',
     assumption: `${employees} dipendent${employees === 1 ? 'e' : 'i'}${ctx.newHires ? `, ${ctx.newHires} nuova assunzione` : ''}`,
     included: items.map(i => i.title).join(','), group: 'scenario:payroll'
   });
@@ -4963,16 +5365,19 @@ function undoLastChange() {
 }
 /* ---------- Messaggi e interazione ---------- */
 function addMessage(message) {
-  A().messages.push({ id: `m_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, ...message });
+  const entry = { id: `m_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, ...message };
+  A().messages.push(entry);
+  return entry;
 }
 function addUser(text) {
-  addMessage({
+  return addMessage({
     role: 'user', type: 'text', text: String(text)
   });
 }
 function addBot(text, opts = {}) {
-  addMessage({
-    role: 'bot', type: 'text', text: String(text), compact: !!opts.compact, choices: opts.choices || null
+  return addMessage({
+    role: 'bot', type: 'text', text: String(text), compact: !!opts.compact, choices: opts.choices || null,
+    displayText: opts.displayText, revealing: !!opts.revealing
   });
 }
 function addQuoteMessage(quote) {
@@ -4980,33 +5385,76 @@ function addQuoteMessage(quote) {
     role: 'bot', type: 'quote', quote
   });
 }
-function typeDelay(text) {
-  return Math.min(780, Math.max(280, String(text || '').length * 7));
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
-function queueResponse(steps) {
+function prefersReducedMotion() {
+  return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+function thinkingDelay(text) {
+  const length = String(text || '').length;
+  /* L'attesa deve essere percepibile anche nei browser mobili/webview. */
+  return Math.min(3400, Math.max(1400, 1050 + length * 7));
+}
+function characterDelay(char) {
+  if (/[,;:]/.test(char)) return 70;
+  if (/[.!?]/.test(char)) return 135;
+  if (/\s/.test(char)) return 18;
+  return 27 + Math.floor(Math.random() * 18);
+}
+async function revealBotMessage(text, opts, token) {
+  const full = String(text || '');
+  const reduced = prefersReducedMotion();
+  const message = addBot(full, { ...opts, displayText: '', revealing: true });
+  A().showThinking = false;
+  render();
+  let shown = '';
+  for (let i = 0; i < full.length; i++) {
+    if (token !== A().queueToken) return;
+    shown += full[i];
+    message.displayText = shown;
+    if (i % 2 === 0 || i === full.length - 1) render();
+    await sleep(reduced ? Math.min(12, characterDelay(full[i])) : characterDelay(full[i]));
+  }
+  message.displayText = full;
+  message.revealing = false;
+  render();
+}
+async function queueResponse(steps) {
   const a = A(), token = ++a.queueToken;
   a.isTyping = true;
+  a.showThinking = true;
   render();
-  let delay = 0;
-  steps.forEach((step, index) => {
-    delay += typeDelay(step.text || 'stima') + (index ? 90 : 0);
-    setTimeout(() => {
-      if (token !== A().queueToken)
-        return;
-      if (A().preserveScroll)
-        A().newMessages = true;
-      if (step.kind === 'quote')
-        addQuoteMessage(step.quote);
-      else
-        addBot(step.text, step);
-      if (index === steps.length - 1)
-        A().isTyping = false;
+  try {
+  for (let index = 0; index < steps.length; index++) {
+    const step = steps[index];
+    if (token !== A().queueToken) return;
+    if (step.kind === 'quote') {
+      await sleep(index ? 260 : 450);
+      if (token !== A().queueToken) return;
+      A().showThinking = false;
+      addQuoteMessage(step.quote);
+      render();
+    } else {
+      A().showThinking = true;
+      render();
+      await sleep(prefersReducedMotion() ? 650 : thinkingDelay(step.text));
+      if (token !== A().queueToken) return;
+      await revealBotMessage(step.text, step, token);
+    }
+    if (index < steps.length - 1) await sleep(180);
+  }
+  } finally {
+    if (token === A().queueToken) {
+      A().isTyping = false;
+      A().showThinking = false;
       A().preserveScroll = false;
       render();
-    }, delay);
-  });
+    }
+  }
 }
 function deliverQuote(result, question, opts = {}) {
+  const a = A();
   const quote = saveQuote(result, question, opts.replace !== false);
   const intro = opts.ack === false ? null : (quote.diff ? 'Certo, aggiorno la stima con il nuovo dato.' : 'Certo, ti do subito una prima indicazione.');
   const steps = [];
@@ -5015,14 +5463,18 @@ function deliverQuote(result, question, opts = {}) {
   if (result.manual)
     steps.push({ text: `${result.lead}\n\n${result.detail}` });
   steps.push({ kind: 'quote', quote });
+  a.readyForEstimate = false;
+  a.pending = { type: 'finalCheck' };
+  a.focusPrompt = true;
+  steps.push({ text: 'Hai altro da aggiungere, correggere o chiedere?', compact: true, choices: [['Sì', 'final:yes'], ['No', 'final:no']] });
   queueResponse(steps);
 }
 function choosePrompt(type, extra = {}) {
   const prompts = {
-    legalForm: { text: extra.activity ? `Ho capito che si tratta di ${extra.activity}. Come è organizzata l’attività?` : 'Che tipo di attività o società è?', choices: [['SRL', 'profile:srl'], ['Società di capitali', 'profile:capitali'], ['SNC o SAS', 'profile:persone'], ['Ditta individuale', 'profile:ditta'], ['Professionista', 'profile:professionista'], ['Forfettario', 'profile:forfettario'], ['Altro', 'profile:other']] },
-    opening: { text: 'Quando dici “aprire”, vuoi sapere il costo della costituzione, della gestione annuale oppure di entrambe?', choices: [['Gestione annuale', 'opening:annual'], ['Costituzione', 'opening:constitution'], ['Entrambe', 'opening:both']] },
+    legalForm: { text: extra.activity ? `Ho capito che vuoi occuparti di ${extra.activity}. Lavorerai da solo oppure con dei soci?` : 'Lavorerai da solo oppure con dei soci? Se non hai ancora deciso, dimmelo pure.', choices: [['Da solo come professionista', 'profile:professionista'], ['Da solo come ditta', 'profile:ditta'], ['Con una SRL o SRLS', 'profile:srl'], ['Con una SNC o SAS', 'profile:persone'], ['Altra società', 'profile:capitali'], ['Non lo so ancora', 'profile:other']] },
+    opening: { text: 'Certo. Che lavoro o attività vuoi iniziare? Dopo capiremo insieme se ti basta la partita IVA, se serve una ditta oppure se vuoi aprire una società.', choices: [] },
     revenueConfirm: { text: `Ho interpretato “${extra.original}” come ${euro(extra.value)} di fatturato annuo. È corretto?`, choices: [['Sì, corretto', 'confirm:yes'], ['No, lo riscrivo', 'confirm:no']] },
-    unknown: { text: 'Non sono ancora sicuro di aver capito la richiesta. Quale di queste opzioni si avvicina di più?', choices: [['Gestione annuale', 'topic:annual'], ['Dipendenti e paghe', 'topic:payroll'], ['Dichiarazione o pratica', 'topic:service'], ['Parlare con lo Studio', 'topic:contact']] }
+    unknown: { text: 'Non sono sicuro di aver capito bene. Puoi scegliere l’obiettivo più vicino alla tua situazione:', choices: [['Iniziare o chiudere un’attività', 'topic:opening'], ['Sapere quanto costa la gestione', 'topic:annual'], ['Assumere o gestire persone', 'topic:payroll'], ['Risolvere una pratica o una lettera ricevuta', 'topic:service'], ['Parlare con lo Studio', 'topic:contact']] }
   };
   return prompts[type];
 }
@@ -5035,7 +5487,7 @@ function askClarification(type, extra = {}) {
 }
 function startRefinement(profile, field = null) {
   const ctx = currentContext();
-  const all = profile === 'forfettario' ? ['overTen', 'employees'] : ['employees', 'documents', 'revenue'];
+  const all = profile === 'forfettario' ? ['activity', 'overTen', 'employees'] : ['activity', 'documents', 'revenue', 'employees'];
   const steps = field ? [field] : all;
   A().pending = {
     type: 'refine', profile, steps, index: 0, context: ctx
@@ -5048,10 +5500,10 @@ function askRefineStep() {
     return;
   const field = p.steps[p.index];
   const map = {
-    employees: { text: 'La società o attività ha dipendenti?', choices: [['Nessuno', 'refine:employees:0'], ['1', 'refine:employees:1'], ['2', 'refine:employees:2'], ['3', 'refine:employees:3'], ['Scrivo il numero', 'refine:employees:custom']] },
-    documents: { text: 'Indicativamente, avrai poche fatture, un numero medio oppure molte?', choices: [['Poche', 'refine:documents:few'], ['Nella media', 'refine:documents:medium'], ['Molte', 'refine:documents:many'], ['Non lo so ancora', 'refine:documents:unknown']] },
-    revenue: { text: 'Quanto pensi di fatturare in un anno?', choices: [['Fino a 75.000 €', 'refine:revenue:75000'], ['Circa 100.000 €', 'refine:revenue:100000'], ['Non lo so ancora', 'refine:revenue:unknown']] },
-    overTen: { text: 'Pensi di emettere fino a 10 fatture al mese oppure di più?', choices: [['Fino a 10', 'refine:overTen:false'], ['Più di 10', 'refine:overTen:true'], ['Non lo so ancora', 'refine:overTen:unknown']] },
+    employees: { text: 'Ci sono già persone assunte oppure persone che vorresti assumere?', choices: [['Nessuno', 'refine:employees:0'], ['1', 'refine:employees:1'], ['2', 'refine:employees:2'], ['3', 'refine:employees:3'], ['Scrivo il numero', 'refine:employees:custom']] },
+    documents: { text: 'Indicativamente, quante fatture, ricevute, scontrini o altri movimenti avrai in un mese?', choices: [['Meno di 10 al mese', 'refine:documents:few'], ['Da 10 a 30 al mese', 'refine:documents:medium'], ['Più di 30 al mese', 'refine:documents:many'], ['Non lo so ancora', 'refine:documents:unknown']] },
+    revenue: { text: 'Quanto pensi di incassare o fatturare in un anno, prima di togliere le spese? Puoi scrivere anche 10k, 100.000 o 1M.', choices: [['Fino a 75.000 €', 'refine:revenue:75000'], ['Circa 100.000 €', 'refine:revenue:100000'], ['Non lo so ancora', 'refine:revenue:unknown']] },
+    overTen: { text: 'Quante fatture pensi di fare ogni mese?', choices: [['Fino a 10', 'refine:overTen:false'], ['Più di 10', 'refine:overTen:true'], ['Non lo so ancora', 'refine:overTen:unknown']] },
     profile: { text: 'Qual è la forma dell’attività?', choices: choosePrompt('legalForm').choices },
     activity: { text: 'Che tipo di attività svolgi? Puoi scriverlo liberamente.', choices: [] }
   };
@@ -5083,14 +5535,15 @@ function handleRefineText(text) {
     return true;
   }
   if (field === 'employees') {
-    const v = parseItalianNumber(text);
+    const natural = extractFacts(text, p.context);
+    const v = natural._known?.employees ? natural.employees : parseItalianNumber(text);
     if (Number.isFinite(v) && v >= 0 && v <= 60) {
       p.context.employees = Math.round(v);
       p.context._known = { ...(p.context._known || {}), employees: true };
       nextRefine();
       return true;
     }
-    addBot('Scrivi soltanto il numero dei dipendenti, per esempio “2”, oppure “non lo so ancora”.', { compact: true });
+    addBot('Puoi scrivere, per esempio, “nessuno”, “due già assunti”, “uno da assumere” oppure “non lo so ancora”.', { compact: true });
     render();
     return true;
   }
@@ -5154,7 +5607,7 @@ function answerAboutQuote(text) {
     if (!payroll.length)
       return 'Nell’ultima stima non sono presenti dipendenti.';
     const once = totals.oneoff ? ` A questi si aggiungono ${euro(totals.oneoff)} una tantum per le pratiche iniziali.` : '';
-    return `Gli adempimenti del personale incidono per ${euro(totals.recurring)} all’anno sulla gestione ricorrente.${once} Comprendono ${payroll.map(i => i.title).join(', ')}.`;
+    return `I servizi inclusi per il personale incidono per ${euro(totals.recurring)} all’anno sulla gestione ricorrente.${once} Comprendono ${payroll.map(i => i.title).join(', ')}.`;
   }
   if (/\b(pagare|pagamento|rate|rateizzare).*(mese|mensile|trimestre|trimestrale)\b/.test(n))
     return PAYMENT_NOTE + ' La modalità effettiva viene concordata con lo Studio.';
@@ -5163,7 +5616,7 @@ function answerAboutQuote(text) {
   if (/\b(come si compone|dettaglio|singole voci|spiegami il totale)\b/.test(n)) {
     const recurring = recurringItems(r.items).map(i => `${i.title}: ${i.priceText}`);
     const oneoff = oneoffItems(r.items).map(i => `${i.title}: ${i.priceText}`);
-    return [recurring.length ? 'Gestione ricorrente:\n' + recurring.join('\n') : null, oneoff.length ? 'Attività una tantum:\n' + oneoff.join('\n') : null].filter(Boolean).join('\n\n');
+    return [recurring.length ? 'Servizi annuali:\n' + recurring.join('\n') : null, oneoff.length ? 'Costi iniziali o singole pratiche:\n' + oneoff.join('\n') : null].filter(Boolean).join('\n\n');
   }
   return null;
 }
@@ -5172,10 +5625,22 @@ function processPendingChoice(value, label) {
   if (!p)
     return false;
   addUser(label || value);
+  if (p.type === 'finalCheck') {
+    a.pending = null;
+    if (value === 'final:yes') {
+      a.readyForEstimate = false;
+      addBot('Certo. Scrivi pure tutto quello che vuoi aggiungere o correggere: aggiornerò la stima prima dell’invio.', { compact: true });
+    } else {
+      a.readyForEstimate = true;
+      addBot('Perfetto. Puoi ora inviare allo Studio i dati, il preventivo e la chat per la conferma, oppure prenotare una videocall.', { compact: true });
+    }
+    render();
+    return true;
+  }
   if (p.type === 'legalForm') {
     if (value === 'profile:other') {
       a.pending = null;
-      addBot('Per una forma diversa da quelle elencate, scrivimi il nome esatto oppure invia la richiesta allo Studio.', { compact: true });
+      addBot('Nessun problema. Descrivimi semplicemente se lavorerai da solo, con altri soci oppure come associazione; ti aiuterò a individuare l’opzione corretta.', { compact: true });
       render();
       return true;
     }
@@ -5195,12 +5660,12 @@ function processPendingChoice(value, label) {
         askClarification('legalForm', { activity: a.context.activity });
     }
     else if (value === 'opening:constitution') {
-      addBot('Il tariffario incorporato non prevede un compenso automatico per la costituzione. Lo Studio valuterà forma societaria, notaio e adempimenti necessari.', { compact: true });
+      addBot('Il costo di apertura della società deve essere valutato dallo Studio in base alla forma scelta e alle pratiche necessarie. Gli eventuali costi esterni non sono inclusi nella stima dei servizi dello Studio.', { compact: true });
       a.readyForEstimate = true;
       render();
     }
     else {
-      addBot('Posso stimare subito la gestione annuale; la costituzione sarà invece valutata dallo Studio.', { compact: true });
+      addBot('Posso stimare subito i servizi annuali dello Studio; le pratiche iniziali della società saranno valutate separatamente dopo aver chiarito la forma scelta.', { compact: true });
       if (a.context.profile)
         deliverQuote(buildProfileQuote(a.context.profile, a.context), label, { ack: false });
       else
@@ -5227,7 +5692,7 @@ function processPendingChoice(value, label) {
   if (p.type === 'refine') {
     const parts = value.split(':'), field = parts[1], raw = parts.slice(2).join(':');
     if (field === 'employees' && raw === 'custom') {
-      addBot('Scrivi il numero dei dipendenti.', { compact: true });
+      addBot('Scrivi, anche in modo naturale, quante persone sono già dipendenti e quante devono ancora essere assunte.', { compact: true });
       render();
       return true;
     }
@@ -5271,6 +5736,11 @@ function processPendingChoice(value, label) {
   }
   if (p.type === 'unknown') {
     a.pending = null;
+    if (value === 'topic:opening') {
+      addBot('Va bene. Che lavoro o attività vuoi iniziare o chiudere?', { compact: true });
+      render();
+      return true;
+    }
     if (value === 'topic:annual')
       return askClarification('legalForm', {}), true;
     if (value === 'topic:payroll') {
@@ -5279,7 +5749,7 @@ function processPendingChoice(value, label) {
       return true;
     }
     if (value === 'topic:service') {
-      addBot('Scrivi il nome della dichiarazione o della pratica, anche in modo semplice.', { compact: true });
+      addBot('Descrivimi che cosa devi fare o che documento hai ricevuto, anche senza conoscere il nome tecnico della pratica.', { compact: true });
       render();
       return true;
     }
@@ -5344,7 +5814,20 @@ function processUserText(raw) {
     return;
   }
   const n = norm(text);
-  if (/\b(successione|eredita|eredità)\b/.test(n)) {
+  const intents = clientIntentList(text);
+  if (intents.length > 1) {
+    addBot(`Ho riconosciuto ${intents.length} richieste distinte: ${intents.map((x, i) => `${i + 1}) ${x.label}`).join('; ')}. Ora assegno un importo a ciascuna e controllo che nessuna resti fuori.`, { compact: true });
+    const combined = buildCombinedRequestQuote(text, ctx, intents);
+    if (combined) {
+      deliverQuote(combined, text, { ack: false });
+      return;
+    }
+  }
+  if (detectsClosure(text)) {
+    deliverQuote(buildClosureQuote(text, ctx), text);
+    return;
+  }
+  if (/\b(successione|eredita|eredità)\b/.test(n) || detectsInheritanceEvent(text)) {
     deliverQuote(buildSuccessionQuote(text), text);
     return;
   }
@@ -5372,8 +5855,12 @@ function processUserText(raw) {
     deliverQuote(result, text);
     return;
   }
-  if (/\b(buste paga|cedolini|paghe|stipendi)\b/.test(n)) {
+  if (/\b(buste paga|cedolini|paghe|stipendi)\b/.test(n) || detectsHiring(text)) {
     deliverQuote(buildPayrollQuote(text, ctx), text);
+    return;
+  }
+  if (detectsRentalContract(text)) {
+    deliverQuote(buildRentalQuote(text), text);
     return;
   }
   const matches = aliasMatches(text);
@@ -5385,6 +5872,13 @@ function processUserText(raw) {
       deliverQuote(result, text);
       return;
     }
+  }
+  if (detectsVatOpening(text) && !facts.activity) {
+    deliverQuote(buildVatOpeningQuote(text, ctx), text);
+    a.pending = { type: 'refine', profile: facts.profile || 'forfettario', steps: ['activity', 'profile', 'documents', 'revenue', 'employees'], index: 0, context: ctx };
+    addBot('Per rendere la cifra più precisa, dimmi che lavoro o attività vuoi svolgere. Puoi scriverlo con parole semplici.', { compact: true });
+    render();
+    return;
   }
   if (asksOpening(text) && facts.profile && asksOnlyConstitution(text)) {
     askClarification('opening', { profile: facts.profile });
@@ -5413,7 +5907,10 @@ function processUserText(raw) {
       return;
     }
   }
-  askClarification('unknown', {});
+  deliverQuote(buildFallbackConsultationQuote(text), text);
+  a.pending = { type: 'unknown' };
+  addBot('Per trasformare questa prima indicazione nel preventivo della pratica corretta, descrivimi cosa devi ottenere oppure che documento hai ricevuto.', { compact: true });
+  render();
 }
 /* ---------- Rendering ---------- */
 function initialMessages() {
@@ -5444,11 +5941,14 @@ function choicesHtml(choices) {
 }
 function textMessageHtml(m) {
   const role = m.role === 'bot' ? 'assistant' : 'user';
-  return `<div class="assistantBubble ${m.role} ${m.compact ? 'compact' : ''}" role="${role}"><div>${h(m.text).replace(/\n/g, '<br>')}</div>${choicesHtml(m.choices)}</div>`;
+  const visibleText = m.displayText !== undefined ? m.displayText : m.text;
+  const cursor = m.revealing ? '<span class="assistantWritingCursor" aria-hidden="true"></span>' : '';
+  const choices = m.revealing ? '' : choicesHtml(m.choices);
+  return `<div class="assistantBubble ${m.role} ${m.compact ? 'compact' : ''}" role="${role}"><div>${h(visibleText).replace(/\n/g, '<br>')}${cursor}</div>${choices}</div>`;
 }
 function quoteTags(result) {
   const core = result.items.map(i => i.title), visible = core.slice(0, 5);
-  return visible.map(t => `<span class="assistantTag">${h(t)}</span>`).join('') + (core.length > 5 ? `<span class="assistantTag">+${core.length - 5} adempimenti</span>` : '');
+  return visible.map(t => `<span class="assistantTag">${h(t)}</span>`).join('') + (core.length > 5 ? `<span class="assistantTag">+${core.length - 5} servizi inclusi</span>` : '');
 }
 function contextCell(field, quote) {
   const editable = ['profile', 'activity', 'documents', 'revenue', 'employees', 'overTen'].includes(field.key);
@@ -5473,10 +5973,13 @@ function breakdownHtml(r) {
   const recurring = recurringItems(r.items), oneoff = oneoffItems(r.items);
   if (!r.items.length)
     return '<p>Il compenso deve essere valutato dallo Studio.</p>';
-  return `${recurring.length ? `<div class="assistantBreakdownGroup"><h4>Gestione ricorrente</h4>${breakdownRows(recurring)}</div>` : ''}${oneoff.length ? `<div class="assistantBreakdownGroup"><h4>Attività una tantum</h4>${breakdownRows(oneoff)}</div>` : ''}`;
+  return `${recurring.length ? `<div class="assistantBreakdownGroup"><h4>Servizi annuali</h4>${breakdownRows(recurring)}</div>` : ''}${oneoff.length ? `<div class="assistantBreakdownGroup"><h4>Costi iniziali o singole pratiche</h4>${breakdownRows(oneoff)}</div>` : ''}`;
 }
 function quoteDetailsHtml(r, q, fields) {
-  return `<p class="assistantAssumption"><strong>${h(r.lead)}</strong><br>${h(r.detail)}<br><strong>Questa stima considera:</strong> ${h(r.assumption)}.</p><div class="assistantTags">${quoteTags(r)}</div>${fields.length ? `<details><summary>Controlla o modifica i dati considerati</summary><div class="assistantContextGrid">${fields.map(f => contextCell(f, q)).join('')}</div></details>` : ''}<details><summary>Come si compone questa cifra</summary><div class="assistantBreakdown">${breakdownHtml(r)}</div></details><details><summary>Cosa non è compreso</summary><div class="assistantScope">${h(SCOPE_FULL)} ${r.recurringTotal ? h(PAYMENT_NOTE) : ''}</div></details><div class="assistantVersion">Tariffario ${TARIFF_YEAR} · Preventivatore ${h(VERSION)} · Stima del ${new Date(q.createdAt).toLocaleDateString('it-IT')}</div>`;
+  const services = r.items.length
+    ? `<section class="assistantVisibleServices" aria-label="Voci del preventivo"><h3>Voci comprese nella stima</h3><div class="assistantBreakdown">${breakdownHtml(r)}</div></section>`
+    : '';
+  return `${services}<p class="assistantAssumption"><strong>${h(r.lead)}</strong><br>${h(r.detail)}</p>${fields.length ? `<details><summary>Dati usati per la stima</summary><div class="assistantContextGrid">${fields.map(f => contextCell(f, q)).join('')}</div></details>` : ''}<details><summary>Precisazioni ed esclusioni</summary><div class="assistantScope">${h(SCOPE_FULL)} ${r.recurringTotal ? h(PAYMENT_NOTE) : ''}</div></details><div class="assistantVersion">Tariffario ${TARIFF_YEAR} · Preventivatore ${h(VERSION)} · Stima del ${new Date(q.createdAt).toLocaleDateString('it-IT')}</div>`;
 }
 function quoteHtml(m) {
   const q = m.quote, r = q.result, sup = m.superseded, headingId = `quote_${q.id}`;
@@ -5489,11 +5992,24 @@ function quoteHtml(m) {
   const feedback = A().feedback[q.id];
   const details = quoteDetailsHtml(r, q, fields);
   const content = q.diff ? `<details class="assistantUpdatedDetails"><summary>Vedi il dettaglio aggiornato</summary>${details}</details>` : details;
-  return `<article class="assistantQuote" aria-labelledby="${headingId}"><div class="assistantQuoteSummary"><div><span>${h(r.totalLabel || 'A partire da')}</span><strong id="${headingId}">${Number.isFinite(r.total) ? euro(r.total) : 'Da valutare'} ${r.periodLabel ? `<small>${h(r.periodLabel)}</small>` : ''}</strong><small>${h(monthly || SCOPE_SHORT)}</small></div><span class="assistantQuoteStatus" role="status">DA CONFERMARE</span></div>${delta}<div class="assistantQuoteBody">${financialSummaryHtml(r)}${content}<div class="assistantQuoteActions">${r.profile ? `<button type="button" class="btn soft" data-refine-profile="${r.profile}" aria-label="Personalizza questa stima">Personalizza</button>` : ''}${q.diff ? '<button type="button" class="btn light" data-undo-quote aria-label="Annulla l’ultima modifica">Annulla ultima modifica</button>' : ''}<button type="button" class="btn light" data-quote-done>Mi basta questa indicazione</button></div><div class="assistantFeedback" role="group" aria-label="Valuta questa risposta"><span>Questa risposta ti è stata utile?</span><button type="button" class="${feedback === 'useful' ? 'selected' : ''}" data-feedback="useful" data-quote-id="${q.id}" aria-pressed="${feedback === 'useful'}">Sì</button><button type="button" class="${feedback === 'misunderstood' ? 'selected' : ''}" data-feedback="misunderstood" data-quote-id="${q.id}" aria-pressed="${feedback === 'misunderstood'}">Non ha capito</button><button type="button" class="${feedback === 'price' ? 'selected' : ''}" data-feedback="price" data-quote-id="${q.id}" aria-pressed="${feedback === 'price'}">Prezzo da verificare</button></div></div></article>`;
+  return `<article class="assistantQuote" aria-labelledby="${headingId}"><div class="assistantQuoteSummary"><div><span>${h(r.totalLabel || 'A partire da')}</span><strong id="${headingId}">${Number.isFinite(r.total) ? euro(r.total) : 'Da valutare'} ${r.periodLabel ? `<small>${h(r.periodLabel)}</small>` : ''}</strong><small>${h(monthly || SCOPE_SHORT)}</small></div><span class="assistantQuoteStatus" role="status">DA CONFERMARE</span></div>${delta}<div class="assistantQuoteBody">${financialSummaryHtml(r)}${content}<div class="assistantQuoteActions">${r.profile ? `<button type="button" class="btn soft" data-refine-profile="${r.profile}" aria-label="Personalizza questa stima">Personalizza</button>` : ''}${q.diff ? '<button type="button" class="btn light" data-undo-quote aria-label="Annulla l’ultima modifica">Annulla ultima modifica</button>' : ''}</div><div class="assistantFeedback" role="group" aria-label="Valuta questa risposta"><span>Questa risposta ti è stata utile?</span><button type="button" class="${feedback === 'useful' ? 'selected' : ''}" data-feedback="useful" data-quote-id="${q.id}" aria-pressed="${feedback === 'useful'}">Sì</button><button type="button" class="${feedback === 'misunderstood' ? 'selected' : ''}" data-feedback="misunderstood" data-quote-id="${q.id}" aria-pressed="${feedback === 'misunderstood'}">Non ha capito</button><button type="button" class="${feedback === 'price' ? 'selected' : ''}" data-feedback="price" data-quote-id="${q.id}" aria-pressed="${feedback === 'price'}">Prezzo da verificare</button></div></div></article>`;
+}
+function safeQuoteHtml(m) {
+  try {
+    return quoteHtml(m);
+  } catch (error) {
+    console.error('Errore nel rendering della stima', error, m);
+    const r = m?.quote?.result || {};
+    const total = Number.isFinite(r.total) ? euro(r.total) : (Number.isFinite(r.firstYearTotal) ? euro(r.firstYearTotal) : 'Da valutare');
+    const period = r.periodLabel ? ` ${h(r.periodLabel)}` : '';
+    const lead = r.lead || 'Ho preparato una prima stima.';
+    const detail = r.detail || 'Il dettaglio completo deve essere verificato dallo Studio.';
+    return `<article class="assistantQuote assistantQuoteFallback"><div class="assistantQuoteSummary"><div><span>Prima indicazione</span><strong>${total}${period}</strong><small>Stima da confermare</small></div><span class="assistantQuoteStatus">DA CONFERMARE</span></div><div class="assistantQuoteBody"><p class="assistantAssumption"><strong>${h(lead)}</strong><br>${h(detail)}</p><div class="assistantScope">Gli eventuali costi esterni, imposte, contributi, diritti e spese notarili non sono compresi.</div></div></article>`;
+  }
 }
 function messagesHtml() {
   const a = A();
-  return a.messages.map(m => m.type === 'quote' ? quoteHtml(m) : textMessageHtml(m)).join('') + (a.isTyping ? `<div class="assistantBubble bot compact" role="status" aria-live="polite"><span class="assistantTyping">Studio De Caro sta preparando la risposta <span class="assistantTypingDots" aria-hidden="true"><i></i><i></i><i></i></span></span></div>` : '');
+  return a.messages.map(m => m.type === 'quote' ? safeQuoteHtml(m) : textMessageHtml(m)).join('') + (a.isTyping && a.showThinking ? `<div class="assistantBubble bot compact assistantThinkingBubble" role="status" aria-live="polite"><span class="assistantTyping"><span class="srOnly">Studio De Caro sta preparando la risposta</span><span class="assistantTypingDots" aria-hidden="true"><i></i><i></i><i></i></span></span></div>` : '');
 }
 function suggestionsHtml() {
   const a = A(), area = AREAS.find(x => x.id === a.area) || AREAS[0];
@@ -5515,6 +6031,24 @@ function estimateData() {
     profile: last?.profile ? contextLabels(last.profile, last.context || {}).join(' · ') : (d.legalForm || 'Non indicato'),
     date: new Date()
   };
+}
+function chatTranscriptText() {
+  const a = A();
+  const lines = [];
+  a.messages.forEach(m => {
+    if (m.type === 'quote') {
+      const r = m.quote?.result || {};
+      const amount = Number.isFinite(r.firstYearTotal) ? euro(r.firstYearTotal) : (Number.isFinite(r.total) ? euro(r.total) : 'Da valutare');
+      lines.push(`CHAT — STIMA: ${amount}`);
+      if (Array.isArray(r.items) && r.items.length)
+        lines.push(`Servizi: ${r.items.map(i => i.title).join(', ')}`);
+      return;
+    }
+    const text = String(m.text || '').trim();
+    if (!text) return;
+    lines.push(`${m.role === 'user' ? 'CLIENTE' : 'ASSISTENTE'}: ${text}`);
+  });
+  return lines.join('\n');
 }
 function estimateText() {
   const data = estimateData(), recurring = recurringItems(data.items), oneoff = oneoffItems(data.items), f = data.financial, d = data.client;
@@ -5545,6 +6079,9 @@ function estimateText() {
   else if (f.oneoff)
     lines.push(`Totale indicativo delle attività una tantum: ${euro(f.oneoff)}`, '');
   lines.push(SCOPE_FULL, PAYMENT_NOTE, 'Il preventivo verrà rivisto e confermato dallo Studio.');
+  const transcript = chatTranscriptText();
+  if (transcript)
+    lines.push('', 'TRASCRIZIONE DELLA CHAT:', transcript);
   return lines.join('\n');
 }
 function emailUrl() {
@@ -5557,12 +6094,14 @@ function finalPanelHtml() {
   const a = A();
   if (!a.readyForEstimate)
     return '';
-  return `<section class="assistantFinalPanel"><h3>Vuoi inviare questa prima indicazione allo Studio?</h3><p>Lo Studio controllerà i dati e preparerà il preventivo definitivo.</p><div class="assistantFinalActions"><a class="btn secondary" href="${h(emailUrl())}">Invia tramite email</a><a class="btn" href="${h(whatsappUrl())}" target="_blank" rel="noopener">Invia tramite WhatsApp</a><button class="btn light" id="assistantPrint">Stampa o salva in PDF</button><a class="btn warn" href="${h(CONTACT.calendar)}" target="_blank" rel="noopener">Prenota una consulenza</a></div><div class="assistantPrivacyNote">I dati della conversazione restano nel browser. Il feedback salva localmente solo la categoria della segnalazione, senza il testo scritto.</div></section>`;
+  const d = state.clientData;
+  const missing = !String(d.name || '').trim() || (!String(d.email || '').trim() && !String(d.phone || '').trim());
+  return `<section class="assistantFinalPanel"><h3>Invia la richiesta allo Studio per la conferma</h3><p>Il messaggio comprende i dati inseriti, il preventivo e la trascrizione della chat. Lo Studio controllerà le informazioni e confermerà la proposta.</p>${missing ? '<div class="issue" style="margin-bottom:12px">Per essere ricontattato più facilmente, apri “Dati facoltativi del cliente” e inserisci almeno il nome e un recapito.</div>' : ''}<div class="assistantFinalActions"><a class="btn secondary" href="${h(emailUrl())}">Invia il preventivo via email</a><a class="btn" href="${h(whatsappUrl())}" target="_blank" rel="noopener">Invia il preventivo su WhatsApp</a><a class="btn warn" href="${h(CONTACT.calendar)}" target="_blank" rel="noopener">Prenota una videocall</a><button class="btn light" id="assistantPrint">Stampa o salva in PDF</button></div><div class="assistantPrivacyNote">Il pulsante email apre l’app di posta del dispositivo con destinatario, oggetto e testo già compilati. L’invio effettivo avviene quando il cliente conferma nell’app di posta. WhatsApp apre una conversazione con il messaggio già pronto.</div></section>`;
 }
 function clientChatView() {
   initialMessages();
   const a = A();
-  return `<div class="assistantLayout">${sidebarHtml()}<section class="panel assistantPanel" style="position:relative" aria-label="Assistente preventivi Studio De Caro"><header class="assistantHeader"><h2>Chat Studio De Caro</h2><p>Racconta la situazione con parole tue. L’assistente riconosce il tipo di attività, gli adempimenti collegati e prepara una prima stima.</p><div class="assistantHeaderMeta">Tariffario ${TARIFF_YEAR} · Versione ${h(VERSION)}</div><details class="assistantData"><summary>Dati facoltativi del cliente</summary><div class="formGrid"><label class="field"><span>Nome</span><input class="assistantClientInput" data-key="name" value="${h(state.clientData.name)}" autocomplete="name"></label><label class="field"><span>Email</span><input class="assistantClientInput" data-key="email" type="email" value="${h(state.clientData.email)}" autocomplete="email"></label><label class="field"><span>Telefono</span><input class="assistantClientInput" data-key="phone" value="${h(state.clientData.phone)}" autocomplete="tel"></label><label class="field"><span>Forma o situazione</span><input class="assistantClientInput" data-key="legalForm" value="${h(state.clientData.legalForm)}"></label></div></details></header><div class="assistantMessages" id="assistantMessages" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Conversazione con l’assistente" aria-busy="${a.isTyping}">${messagesHtml()}</div>${a.newMessages ? '<button type="button" class="assistantNewMessages" id="assistantNewMessages" aria-label="Vai ai nuovi messaggi">Nuovi messaggi</button>' : ''}${suggestionsHtml()}<form class="assistantComposer" id="assistantForm"><label class="srOnly" for="assistantInput">Scrivi il messaggio</label><textarea id="assistantInput" placeholder="Scrivi come parleresti con una persona…" ${a.isTyping ? 'disabled aria-disabled="true"' : ''}></textarea><div class="assistantComposerMeta"><span>Puoi inserire tutto in una frase: attività, fatturato, dipendenti e ciò che ti serve.</span><span>Invio per spedire · Maiusc+Invio per andare a capo</span></div><div class="assistantComposerActions"><button class="btn" type="submit" ${a.isTyping ? 'disabled' : ''}>Invia</button><button class="btn light" type="button" id="assistantReset">Nuova conversazione</button><button class="btn light" type="button" id="assistantBack">Indietro</button></div></form>${finalPanelHtml()}</section></div>`;
+  return `<div class="assistantLayout">${sidebarHtml()}<section class="panel assistantPanel" style="position:relative" aria-label="Assistente preventivi Studio De Caro"><header class="assistantHeader"><h2>Chat Studio De Caro</h2><p>Racconta la situazione con parole tue. L’assistente riconosce il tipo di attività, i servizi collegati e prepara una prima stima.</p><div class="assistantHeaderMeta">Tariffario ${TARIFF_YEAR} · Versione ${h(VERSION)}</div><details class="assistantData"><summary>Dati facoltativi del cliente</summary><div class="formGrid"><label class="field"><span>Nome</span><input class="assistantClientInput" data-key="name" value="${h(state.clientData.name)}" autocomplete="name"></label><label class="field"><span>Email</span><input class="assistantClientInput" data-key="email" type="email" value="${h(state.clientData.email)}" autocomplete="email"></label><label class="field"><span>Telefono</span><input class="assistantClientInput" data-key="phone" value="${h(state.clientData.phone)}" autocomplete="tel"></label><label class="field"><span>Forma o situazione</span><input class="assistantClientInput" data-key="legalForm" value="${h(state.clientData.legalForm)}"></label></div></details></header><div class="assistantMessages" id="assistantMessages" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Conversazione con l’assistente" aria-busy="${a.isTyping}">${messagesHtml()}</div>${a.newMessages ? '<button type="button" class="assistantNewMessages" id="assistantNewMessages" aria-label="Vai ai nuovi messaggi">Nuovi messaggi</button>' : ''}${suggestionsHtml()}<form class="assistantComposer" id="assistantForm"><label class="srOnly" for="assistantInput">Scrivi il messaggio</label><textarea id="assistantInput" placeholder="Scrivi come parleresti con una persona…" ${a.isTyping ? 'disabled aria-disabled="true"' : ''}></textarea><div class="assistantComposerMeta"><span>Puoi inserire tutto in una frase: attività, fatturato, dipendenti e ciò che ti serve.</span><span>Invio per spedire · Maiusc+Invio per andare a capo</span></div><div class="assistantComposerActions"><button class="btn" type="submit" ${a.isTyping ? 'disabled' : ''}>Invia</button><button class="btn light" type="button" id="assistantReset">Nuova conversazione</button><button class="btn light" type="button" id="assistantBack">Indietro</button></div></form>${finalPanelHtml()}</section></div>`;
 }
 function portalHeader() {
   const actions = document.getElementById('headActions');
@@ -5633,12 +6172,12 @@ function printEstimate() {
   const data = estimateData(), f = data.financial, recurring = recurringItems(data.items), oneoff = oneoffItems(data.items), root = document.getElementById('printRoot');
   const cards = [
     f.recurring ? ['Gestione annuale', euro(f.recurring)] : null,
-    f.oneoff ? ['Attività una tantum', euro(f.oneoff)] : null,
+    f.oneoff ? ['Costi iniziali o singole pratiche', euro(f.oneoff)] : null,
     f.recurring && f.oneoff ? ['Totale primo anno', euro(f.firstYear)] : null,
     f.recurring ? ['Dagli anni successivi', euro(f.recurring)] : null
   ].filter(Boolean);
   const itemHtml = (items, title) => items.length ? `<section class="printSection"><h2>${h(title)}</h2>${items.map(i => `<div class="printItem"><div class="printItemTop"><div><h3>${h(i.title)}</h3><p>${h(i.note || '')}</p></div><div class="printPrice">${h(i.priceText)}</div></div></div>`).join('')}</section>` : '';
-  root.innerHTML = `<div class="printDoc"><div class="printHeader"><div><p>Studio De Caro</p><h1>Stima preliminare</h1><p>Tariffario ${TARIFF_YEAR} · Preventivatore ${h(VERSION)} · ${data.date.toLocaleDateString('it-IT')}</p></div><div class="printLogo">DC</div></div><section class="printSection"><h2>Profilo considerato</h2><p>${h(data.profile)}</p><div class="printInfoGrid">${cards.map(([label, value]) => `<div class="printInfo"><span>${h(label)}</span><strong>${h(value)}</strong></div>`).join('')}</div>${f.recurring ? `<p class="printSmall">Equivalente mensile orientativo della sola gestione ricorrente: ${h(euro(f.recurring / 12, 2))}. Non rappresenta una modalità di pagamento già concordata.</p>` : ''}</section>${itemHtml(recurring, 'Gestione ricorrente')}${itemHtml(oneoff, 'Attività una tantum')}<section class="printSection"><h2>Precisazioni</h2><p>${h(SCOPE_FULL)}</p><p>${h(PAYMENT_NOTE)}</p><p>Il preventivo verrà rivisto e confermato dallo Studio.</p></section></div>`;
+  root.innerHTML = `<div class="printDoc"><div class="printHeader"><div><p>Studio De Caro</p><h1>Stima preliminare</h1><p>Tariffario ${TARIFF_YEAR} · Preventivatore ${h(VERSION)} · ${data.date.toLocaleDateString('it-IT')}</p></div><div class="printLogo">DC</div></div><section class="printSection"><h2>Profilo considerato</h2><p>${h(data.profile)}</p><div class="printInfoGrid">${cards.map(([label, value]) => `<div class="printInfo"><span>${h(label)}</span><strong>${h(value)}</strong></div>`).join('')}</div>${f.recurring ? `<p class="printSmall">Equivalente mensile orientativo della sola gestione ricorrente: ${h(euro(f.recurring / 12, 2))}. Non rappresenta una modalità di pagamento già concordata.</p>` : ''}</section>${itemHtml(recurring, 'Servizi annuali')}${itemHtml(oneoff, 'Costi iniziali o singole pratiche')}<section class="printSection"><h2>Precisazioni</h2><p>${h(SCOPE_FULL)}</p><p>${h(PAYMENT_NOTE)}</p><p>Il preventivo verrà rivisto e confermato dallo Studio.</p></section></div>`;
   window.print();
 }
 function readFeedbackRows() {
@@ -5791,8 +6330,10 @@ function handlePortalClick(event) {
   else if (target.hasAttribute('data-undo-quote'))
     undoLastChange();
   else if (target.hasAttribute('data-quote-done')) {
-    A().readyForEstimate = true;
-    addBot('Perfetto. Questa è una prima indicazione: lo Studio controllerà i dati e preparerà il preventivo definitivo.', { compact: true });
+    const a = A();
+    a.readyForEstimate = false;
+    a.pending = { type: 'finalCheck' };
+    addBot('Prima di concludere: hai altro da aggiungere, correggere o chiedere?', { compact: true, choices: [['Sì', 'final:yes'], ['No', 'final:no']] });
     render();
   }
   else if (target.dataset.feedback)
